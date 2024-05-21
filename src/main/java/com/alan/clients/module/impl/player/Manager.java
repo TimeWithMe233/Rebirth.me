@@ -6,11 +6,12 @@ import com.alan.clients.component.impl.player.SelectorDetectionComponent;
 import com.alan.clients.module.Module;
 import com.alan.clients.module.api.Category;
 import com.alan.clients.module.api.ModuleInfo;
-import com.alan.clients.module.impl.combat.KillAura;
 import com.alan.clients.module.impl.movement.InventoryMove;
+import com.alan.clients.module.impl.movement.NoSlow;
+import com.alan.clients.module.impl.movement.noslow.HuaYuTingNoSlow;
 import com.alan.clients.newevent.Listener;
 import com.alan.clients.newevent.annotations.EventLink;
-import com.alan.clients.newevent.impl.motion.PostMotionEvent;
+import com.alan.clients.newevent.impl.motion.PreMotionEvent;
 import com.alan.clients.newevent.impl.other.AttackEvent;
 import com.alan.clients.newevent.impl.packet.PacketSendEvent;
 import com.alan.clients.util.interfaces.InstanceAccess;
@@ -49,7 +50,6 @@ public class Manager extends Module {
     private final NumberValue blockSlot = new NumberValue("Block Slot", this, 5, 1, 9, 1);
     private final NumberValue potionSlot = new NumberValue("Bow Slot", this, 6, 1, 9, 1);
     private final NumberValue foodSlot = new NumberValue("Apple Slot", this, 9, 1, 9, 1);
-    private final NumberValue throwablesSlot = new NumberValue("Throwables Slot", this, 8, 1, 9, 1);
     private final NumberValue pearlSlot = new NumberValue("Pearl Slot", this,  7, 1, 9, 1);
 
     private final StopWatch stopwatch = new StopWatch();
@@ -68,10 +68,10 @@ public class Manager extends Module {
     }
     public boolean isGarbage(ItemStack stack) {
         Item item = stack.getItem();
-        if (item == Items.tnt_minecart)
+        if(item == Items.tnt_minecart)
             return false;
 
-        if (item == Items.snowball || item == Items.egg || item == Items.fishing_rod || item == Items.experience_bottle || item == Items.skull || item == Items.flint || item == Items.lava_bucket || item == Items.flint_and_steel || item == Items.string || stack.getItem().getUnlocalizedName().equalsIgnoreCase("item.helmetChain") || stack.getItem().getUnlocalizedName().equalsIgnoreCase("item.leggingsChain")) {
+        if (item == Items.snowball || item == Items.egg || item == Items.fishing_rod || item == Items.experience_bottle || item == Items.skull || item == Items.flint || item == Items.lava_bucket || item == Items.flint_and_steel || item == Items.string ||  stack.getItem().getUnlocalizedName().equalsIgnoreCase("item.helmetChain") || stack.getItem().getUnlocalizedName().equalsIgnoreCase("item.leggingsChain")) {
             return true;
         } else if (item instanceof ItemHoe) {
             return true;
@@ -80,22 +80,21 @@ public class Manager extends Module {
         } else if (item instanceof ItemPotion) {
             ItemPotion potion = (ItemPotion) item;
 
-            for (PotionEffect effect : potion.getEffects(stack)) {
+            for(PotionEffect effect : potion.getEffects(stack)) {
                 int id = effect.getPotionID();
-                if (id == Potion.moveSlowdown.getId() || id == Potion.blindness.getId() || id == Potion.poison.getId() || id == Potion.digSlowdown.getId() || id == Potion.weakness.getId() || id == Potion.harm.getId()) {
+                if(id == Potion.moveSlowdown.getId() || id == Potion.blindness.getId() || id == Potion.poison.getId() || id == Potion.digSlowdown.getId() || id == Potion.weakness.getId() || id == Potion.harm.getId()) {
                     return true;
                 }
             }
         } else {
             String itemName = stack.getItem().getUnlocalizedName().toLowerCase();
 
-            return itemName.contains("anvil") || itemName.contains("seed") || itemName.contains("table") || itemName.contains("string")
+            return itemName.contains("anvil")  || itemName.contains("seed") || itemName.contains("table") || itemName.contains("string")
                     || itemName.contains("eye") || itemName.contains("mushroom") || (itemName.contains("chest") && !itemName.contains("plate")) || itemName.contains("pressure_plate");
         }
 
         return false;
     }
-
     private void openInventory() {
         if (!this.open) {
             PacketUtil.send(new C16PacketClientStatus(C16PacketClientStatus.EnumState.OPEN_INVENTORY_ACHIEVEMENT));
@@ -372,7 +371,7 @@ public class Manager extends Module {
         }
     };
     @EventLink()
-    public final Listener<PostMotionEvent> onPostMotionEvent = event -> {
+    public final Listener<PreMotionEvent> onPreMotionEvent = event -> {
         if (isNull()) return;
         if (InstanceAccess.mc.thePlayer.ticksExisted <= 40) {
             return;
@@ -390,10 +389,10 @@ public class Manager extends Module {
         axe = container.getSlot(axeSlot.getValue().intValue() + 36).getStack();
         pickaxe = container.getSlot(pickaxeSlot.getValue().intValue() + 36).getStack();
         shovel = container.getSlot(shovelSlot.getValue().intValue() + 36).getStack();
+        NoSlow noSlow = Client.INSTANCE.getModuleManager().get(NoSlow.class);
         Scaffold Scaffold = Client.INSTANCE.getModuleManager().get(Scaffold.class);
+        if((noSlow.isEnabled() && noSlow.mode.getValue().getName().equals("GrimAC") && HuaYuTingNoSlow.dis)) return;
         if(Scaffold.isEnabled() && Dis.getValue()) return;
-        KillAura KillAura = Client.INSTANCE.getModuleManager().get(KillAura.class);
-        if(KillAura.isEnabled() && KillAura.target != null && Dis.getValue()) return;
         if (InstanceAccess.mc.thePlayer.ticksExisted <= 40) {
             return;
         }
@@ -437,7 +436,6 @@ public class Manager extends Module {
         int potion = -1;
         int food = -1;
         int pearl = -1;
-        int throwables = -1;
         int INVENTORY_COLUMNS = 9;
         int ARMOR_SLOTS = 4;
         int INVENTORY_ROWS = 4;
@@ -521,17 +519,6 @@ public class Manager extends Module {
 
                     if (currentStack != null && stack.stackSize > currentStack.stackSize) {
                         pearl = i;
-                    }
-                }
-            }
-            if (item instanceof ItemSnowball) {
-                if (throwables == -1) {
-                    throwables = i;
-                } else {
-                    final ItemStack currentStack = InstanceAccess.mc.thePlayer.inventory.getStackInSlot(throwables);
-
-                    if (currentStack != null && stack.stackSize > currentStack.stackSize) {
-                        throwables = i;
                     }
                 }
             }
@@ -670,9 +657,6 @@ public class Manager extends Module {
 
         if (food != -1 && food != this.foodSlot.getValue().intValue() - 1) {
             this.moveItem(food, this.foodSlot.getValue().intValue() - 37);
-        }
-        if (throwables != -1 && throwables != this.throwablesSlot.getValue().intValue() - 1){
-            this.moveItem(throwables, this.throwablesSlot.getValue().intValue() - 37);
         }
         if (pearl != -1 && pearl != this.pearlSlot.getValue().intValue() - 1){
             this.moveItem(pearl, this.pearlSlot.getValue().intValue() - 37);

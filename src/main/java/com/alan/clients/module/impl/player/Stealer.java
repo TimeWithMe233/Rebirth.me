@@ -284,7 +284,7 @@ public class Stealer extends Module {
             scaleAnim.run(1f);
             drawChest3();
         }
-        if (silent.getValue() && silentRender.getValue() == SilentRender.Lavender && flag != null) {
+        if (silent.getValue() && silentRender.getValue() == SilentRender.Rebirth && flag != null) {
             if (mc.currentScreen instanceof GuiChest && stored != null) {
                 scaleAnim.run(1f);
                 drawChest(stored.lowerChestInventory);
@@ -300,7 +300,7 @@ public class Stealer extends Module {
 
     @EventLink
     public final Listener<Render3DEvent> onRender3D = event -> {
-        if(!(silentRender.getValue() == SilentRender.Lavender2)) return;
+        if(!(silentRender.getValue() == SilentRender.Rebirth2)) return;
         if (silent.getValue() && flag != null) {
             if ((mc.currentScreen instanceof GuiChest) && stored != null) {
                 scaleAnim.run(1f);

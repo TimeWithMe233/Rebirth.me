@@ -27,6 +27,9 @@ import net.minecraft.util.StringUtils;
 import java.awt.*;
 import java.util.concurrent.TimeUnit;
 
+import static com.alan.clients.module.impl.other.HytAutoPlay.wins;
+import static com.alan.clients.module.impl.render.KillEffect.kills;
+
 /**
  * @author Hazsi
  * @since 10/13/2022
@@ -156,9 +159,9 @@ public class SessionStats extends Module {
             FontManager.getProductSansBold(18).drawStringWithShadow(time, position.position.x + padding,
                     position.position.y + padding + 15, new Color(255, 255, 255, 200).getRGB());
 
-            FontManager.getProductSansMedium(18).drawStringWithShadow(Localization.get("ui.sessionstats.kills") + " " + session.kills, position.position.x + padding,
+            FontManager.getProductSansMedium(18).drawStringWithShadow(Localization.get("ui.sessionstats.kills") + " " + kills, position.position.x + padding,
                     position.position.y + padding + 35, new Color(255, 255, 255, 200).getRGB());
-            FontManager.getProductSansMedium(18).drawStringWithShadow(Localization.get("ui.sessionstats.wins") + " " + session.wins, position.position.x + padding + 40,
+            FontManager.getProductSansMedium(18).drawStringWithShadow(Localization.get("ui.sessionstats.wins") + " " + wins, position.position.x + padding + 40,
                     position.position.y + padding + 35, new Color(255, 255, 255, 200).getRGB());
         });
 

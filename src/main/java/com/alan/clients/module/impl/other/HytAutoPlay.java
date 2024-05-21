@@ -1,11 +1,13 @@
 package com.alan.clients.module.impl.other;
 
+import com.alan.clients.Client;
 import com.alan.clients.component.impl.render.NotificationComponent;
 import com.alan.clients.module.Module;
 import com.alan.clients.module.api.Category;
 import com.alan.clients.module.api.ModuleInfo;
 import com.alan.clients.module.impl.combat.KillAura;
 import com.alan.clients.module.impl.combat.Velocity;
+import com.alan.clients.module.impl.exploit.IRC;
 import com.alan.clients.module.impl.player.Manager;
 import com.alan.clients.module.impl.player.Scaffold;
 import com.alan.clients.module.impl.player.Stealer;
@@ -19,12 +21,15 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S01PacketJoinGame;
 import net.minecraft.network.play.server.S02PacketChat;
 
+import static com.alan.clients.module.impl.render.KillEffect.hytkills;
+
 @ModuleInfo(name = "HytAutoPlay", category = Category.OTHER, description = "CNM")
     public class HytAutoPlay extends Module {
         public static int wins = 0;
         public static int banned = 0;
         private final BooleanValue autodis = new BooleanValue("AutoDisable", this, true);
 
+    final IRC ircmod = Client.INSTANCE.getModuleManager().get(IRC.class);
         @EventLink
         public final Listener<WorldChangeEvent> onWorldChange = event -> disableModule();
 
@@ -86,6 +91,11 @@ import net.minecraft.network.play.server.S02PacketChat;
 
         private void handleWin() {
             wins++;
+            if (ircmod.sendKills.getValue()){
+                NotificationComponent.post( "HytAutoPlay", "You Killed "+hytkills +" Players this game");
+                Client.INSTANCE.getSocketManager().chat("I won " +wins +" games. And I Killed " + hytkills + " Players. this game");
+                hytkills = 0;
+            }
             if (autodis.getValue()) {
                 disableImportantModules();
             }

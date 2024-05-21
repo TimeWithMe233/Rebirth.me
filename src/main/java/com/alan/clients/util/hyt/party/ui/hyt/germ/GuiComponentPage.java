@@ -53,7 +53,7 @@ extends GuiGermScreen {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         GlStateManager.pushMatrix();
-        RenderUtil.drawImage(new ResourceLocation("lavender/hyt/page/header.png"), (float)this.width / 2.0f - 100.0f, (float)this.height / 2.0f - 50.0f - (float)this.componentHeight / 2.0f + 20.0f, 200.0f, 40.0f, -1);
+        RenderUtil.drawImage(new ResourceLocation("Rebirth/hyt/page/header.png"), (float)this.width / 2.0f - 100.0f, (float)this.height / 2.0f - 50.0f - (float)this.componentHeight / 2.0f + 20.0f, 200.0f, 40.0f, -1);
         Minecraft.getMinecraft().fontRendererObj.drawCenteredString(this.title, (float)this.width / 2.0f, (float)this.height / 2.0f - 40.0f - (float)this.componentHeight / 2.0f + 20.0f, new Color(216, 216, 216).getRGB());
         GlStateManager.enableBlend();
         GlStateManager.enableAlpha();
@@ -63,12 +63,12 @@ extends GuiGermScreen {
         for (int i = 0; i < components.size(); ++i) {
             GermComponent component = components.get(i);
             int backgroundHeight = component.getHeight() + (i == components.size() ? 0 : component.getSeparation());
-            RenderUtil.drawImage(new ResourceLocation("lavender/hyt/page/body.png"), (float)this.width / 2.0f - 100.0f, (float)(y - 20), 200.0f, (float)backgroundHeight, -1);
+            RenderUtil.drawImage(new ResourceLocation("Rebirth/hyt/page/body.png"), (float)this.width / 2.0f - 100.0f, (float)(y - 20), 200.0f, (float)backgroundHeight, -1);
             GL11.glEnable((int)3042);
             component.drawComponent(this.uuid, this.width / 2, y, mouseX, mouseY);
             y += backgroundHeight;
         }
-        RenderUtil.drawImage(new ResourceLocation("lavender/hyt/page/footer.png"), (float)this.width / 2.0f - 100.0f, (float)(y - 20), 200.0f, 30.0f, -1);
+        RenderUtil.drawImage(new ResourceLocation("Rebirth/hyt/page/footer.png"), (float)this.width / 2.0f - 100.0f, (float)(y - 20), 200.0f, 30.0f, -1);
         GlStateManager.popMatrix();
     }
 

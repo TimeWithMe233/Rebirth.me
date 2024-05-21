@@ -1,5 +1,6 @@
 package net.minecraft.client.renderer.entity;
 
+import com.alan.clients.Client;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.model.ModelPlayer;
@@ -34,7 +35,7 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer> {
         this.addLayer(new LayerHeldItem(this));
         this.addLayer(new LayerArrow(this));
         this.addLayer(new LayerDeadmau5Head(this));
-//        this.addLayer(new LayerCape(this));
+        this.addLayer(new LayerCape(this));
         this.addLayer(new LayerCustomHead(this.getMainModel().bipedHead));
     }
 
@@ -67,7 +68,7 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer> {
             modelplayer.bipedHeadwear.showModel = true;
         }
         else {
-            ItemStack itemstack = clientPlayer.inventory.getCurrentItem();
+            ItemStack itemstack = Client.INSTANCE.getSlotSpoofHandler().getSpoofedStack();
             modelplayer.setInvisible(true);
             modelplayer.bipedHeadwear.showModel = clientPlayer.isWearing(EnumPlayerModelParts.HAT);
             modelplayer.bipedBodyWear.showModel = clientPlayer.isWearing(EnumPlayerModelParts.JACKET);
@@ -98,6 +99,8 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer> {
             }
         }
     }
+
+
 
     /**
      * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.

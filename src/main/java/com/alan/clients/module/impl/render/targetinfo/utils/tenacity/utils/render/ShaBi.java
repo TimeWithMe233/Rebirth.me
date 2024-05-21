@@ -90,7 +90,7 @@ public class ShaBi  {
         int fragmentShaderID = createShader(new ByteArrayInputStream(fragmentShadersrc.getBytes()), GL_FRAGMENT_SHADER);
         int vertexShaderID = 0;
         try {
-            vertexShaderID = createShader(mc.getResourceManager().getResource(new ResourceLocation("Tenacity/Shaders/vertex.vsh")).getInputStream(), GL_VERTEX_SHADER);
+            vertexShaderID = createShader(mc.getResourceManager().getResource(new ResourceLocation("rebirth/Shader/vertex.vsh")).getInputStream(), GL_VERTEX_SHADER);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -110,7 +110,7 @@ public class ShaBi  {
     }
 
     public ShaBi(String fragmentShaderLoc) {
-        this(fragmentShaderLoc, "rebirth/shaders/vertex.vsh");
+        this(fragmentShaderLoc, "rebirth/shader/vertex.vsh");
     }
 
 

@@ -45,6 +45,7 @@ public class HuaYuTingNoSlow extends Mode<NoSlow> {
     private boolean var0 = false;
     private final LinkedBlockingQueue<Packet<?>> var4 = new LinkedBlockingQueue<>();
     private boolean droppedPacketSent = false;
+    public static boolean dis = false;
 
     @EventLink()
     public final Listener<WorldChangeEvent> onWorldChange = event -> {

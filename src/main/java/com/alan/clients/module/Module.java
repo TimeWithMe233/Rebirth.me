@@ -1,23 +1,31 @@
 package com.alan.clients.module;
 
 import com.alan.clients.Client;
+import com.alan.clients.component.impl.render.NotificationComponent;
 import com.alan.clients.module.api.Category;
 import com.alan.clients.module.api.ModuleInfo;
 import com.alan.clients.module.impl.render.ClickGUI;
 import com.alan.clients.module.impl.render.Interface;
+import com.alan.clients.module.impl.render.interfaces.ModuleComponent;
 import com.alan.clients.newevent.impl.other.ModuleToggleEvent;
 import com.alan.clients.util.animation.Animation;
 import com.alan.clients.util.animation.Easing;
 import com.alan.clients.util.interfaces.InstanceAccess;
+import com.alan.clients.util.localization.Localization;
 import com.alan.clients.value.Value;
 import com.alan.clients.value.impl.BooleanValue;
 import com.alan.clients.value.impl.ModeValue;
 import lombok.Getter;
 import lombok.Setter;
+import net.minecraft.block.Block;
 import org.lwjgl.input.Keyboard;
 
+import javax.sound.sampled.*;
+import java.io.BufferedInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Patrick
@@ -73,13 +81,25 @@ public abstract class Module implements InstanceAccess {
         this.enabled = enabled;
 
         Client.INSTANCE.getEventBus().handle(new ModuleToggleEvent(this));
-
+        final Interface interfaceModule = Client.INSTANCE.getModuleManager().get(Interface.class);
+        ModuleComponent moduleComponent = new ModuleComponent(this);
+        moduleComponent.setTranslatedName(Localization.get(moduleComponent.getModule().getDisplayName()));
 //        SoundUtil.toggleSound(enabled);
 
         if (enabled) {
             superEnable();
+            if (interfaceModule.isEnabled() && interfaceModule.togglenoti.getValue()) {
+                if (!isNull()) {
+                    NotificationComponent.post("Module toggled", (moduleComponent.getTranslatedName() + " Enabled"),500);
+                }
+            }
         } else {
             superDisable();
+            if (interfaceModule.isEnabled() && interfaceModule.togglenoti.getValue()) {
+                if (!isNull()) {
+                    NotificationComponent.post("Module toggled", (moduleComponent.getTranslatedName() + " Disabled"),500);
+                }
+            }
         }
     }
 

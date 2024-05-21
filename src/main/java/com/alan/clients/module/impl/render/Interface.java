@@ -40,7 +40,7 @@ public final class Interface extends Module {
         add(new WurstInterface("Wurst", (Interface) this.getParent()));
         setDefault("Modern");
     }};
-
+    public final BooleanValue togglenoti = new BooleanValue("ToggleNoti",this,true);
     private final ModeValue modulesToShow = new ModeValue("Modules to Show", this, () -> Client.CLIENT_TYPE != Type.RISE) {{
         add(new SubMode("All"));
         add(new SubMode("Exclude render"));

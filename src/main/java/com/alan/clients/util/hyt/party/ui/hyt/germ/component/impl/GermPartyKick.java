@@ -22,7 +22,7 @@ implements GermComponent {
 
     public GermPartyKick(final String playerName) {
         this.playerName = playerName;
-        this.kick = new GermModIconButton("bt", "lavender/hyt/page/kick.png", 12, 12){
+        this.kick = new GermModIconButton("bt", "Rebirth/hyt/page/kick.png", 12, 12){
 
             @Override
             protected void whenClick() {

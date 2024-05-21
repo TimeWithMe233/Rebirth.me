@@ -33,6 +33,8 @@ public class Speed extends Module {
             .add(new MineMenClubSpeed("MineMenClub", this))
             .add(new KoksCraftSpeed("KoksCraft", this))
             .add(new LegitSpeed("Legit", this))
+            .add(new GrimACSpeed("GrimAC", this))
+            .add(new BoundingBoxSpeed("Entityspeed", this))
             .setDefault("Vanilla");
 
     private final BooleanValue disableOnTeleport = new BooleanValue("Disable on Teleport", this, false);

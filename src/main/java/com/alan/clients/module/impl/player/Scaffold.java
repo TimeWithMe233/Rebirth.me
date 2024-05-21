@@ -33,10 +33,7 @@ import com.alan.clients.util.Rotation;
 import com.alan.clients.util.interfaces.InstanceAccess;
 import com.alan.clients.util.math.MathUtil;
 import com.alan.clients.util.packet.PacketUtil;
-import com.alan.clients.util.player.EnumFacingOffset;
-import com.alan.clients.util.player.MoveUtil;
-import com.alan.clients.util.player.PlayerUtil;
-import com.alan.clients.util.player.SlotUtil;
+import com.alan.clients.util.player.*;
 import com.alan.clients.util.render.RenderUtil;
 import com.alan.clients.util.rotation.RotationUtil;
 import com.alan.clients.util.vector.Vector2f;
@@ -68,7 +65,7 @@ import java.util.Objects;
 import java.util.Random;
 
 /**
- * @author Fix By Lavender
+ * @author Fix By Rebirth
  * @since ??/??/21
  */
 
@@ -179,7 +176,7 @@ public class Scaffold extends Module {
         if (isNull()) return;
         final Packet<?> packet = event.getPacket();
         if (event.getPacket() instanceof S08PacketPlayerPosLook && autodis.getValue()) {
-            NotificationComponent.post( "Flag Detector", "Scaffold disabled due to " + (InstanceAccess.mc.thePlayer == null || InstanceAccess.mc.thePlayer.ticksExisted < 5 ? "world change" : "lagback"), 15);
+            NotificationComponent.post( "Flag Detector", "Scaffold disabled due to " + (InstanceAccess.mc.thePlayer == null || InstanceAccess.mc.thePlayer.ticksExisted < 5 ? "world change" : "lagback"), 500);
             this.setEnabled(false);
         }
         if (packet instanceof S2FPacketSetSlot) {
@@ -242,7 +239,7 @@ public class Scaffold extends Module {
                     getRotations();
                     targetYaw = InstanceAccess.mc.thePlayer.rotationYaw ;
 
-                   // smoothRotations();
+                    // smoothRotations();
                 }
                 break;
         }
@@ -355,9 +352,9 @@ public class Scaffold extends Module {
         final Vector2f rotations = RotationUtil.calculate(new com.alan.clients.util.vector.Vector3d(blockFace.getX(),
                 blockFace.getY(), blockFace.getZ()), enumFacing.getEnumFacing());
 
-        if (RotationMode.getValue() == Rotation.Lavender) {
-                targetYaw = rotations.x;
-                targetPitch = rotations.y;
+        if (RotationMode.getValue() == Rotation.Rebirth) {
+            targetYaw = rotations.x;
+            targetPitch = rotations.y;
         }
         if (RotationMode.getValue() == Rotation.New) {
             targetYaw = mc.thePlayer.rotationYaw;
@@ -486,13 +483,14 @@ public class Scaffold extends Module {
 
     @EventLink()
     public final Listener<Render3DEvent> onRender3D = event -> {
+        Color themecolor = this.getTheme().getFirstColor();
         if (!markValue.getValue())
             return;
         if (targetBlock == null)return;
         for (int i = 0; i < (2); i++) {
             final BlockPos blockPos = new BlockPos(InstanceAccess.mc.thePlayer.posX + (InstanceAccess.mc.thePlayer.getHorizontalFacing() == EnumFacing.WEST ? -i : InstanceAccess.mc.thePlayer.getHorizontalFacing() == EnumFacing.EAST ? i : 0), InstanceAccess.mc.thePlayer.posY - (InstanceAccess.mc.thePlayer.posY == (int) InstanceAccess.mc.thePlayer.posY + 0.5D ? 0D : 1.0D) - ( 0), InstanceAccess.mc.thePlayer.posZ + (InstanceAccess.mc.thePlayer.getHorizontalFacing() == EnumFacing.NORTH ? -i : InstanceAccess.mc.thePlayer.getHorizontalFacing() == EnumFacing.SOUTH ? i : 0));
             if (BlockUtil.isReplaceable(blockPos)) {
-                RenderUtil.drawBlockBox(blockPos, new Color(246, 0, 0, 255), false);
+                RenderUtil.drawBlockBox(blockPos, themecolor, false);
                 break;
             }
         }

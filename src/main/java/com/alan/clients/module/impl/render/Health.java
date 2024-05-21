@@ -25,26 +25,26 @@ public final class Health extends Module
     private final DecimalFormat decimalFormat;
     private final Random random;
     private int width;
-    
+
     public Health() {
         this.decimalFormat = new DecimalFormat("0.#", new DecimalFormatSymbols(Locale.ENGLISH));
         this.random = new Random();
     }
-    
+
     @EventTarget
     public void onRenderGuiEvent(final EventUpdate event) {
         if (Health.mc.currentScreen instanceof GuiInventory || Health.mc.currentScreen instanceof GuiChest || Health.mc.currentScreen instanceof GuiContainerCreative) {
             this.renderHealth();
         }
     }
-    
+
     @EventTarget
     public void onRender2DEvent(final EventRender2D event) {
         if (!(Health.mc.currentScreen instanceof GuiInventory) && !(Health.mc.currentScreen instanceof GuiChest)) {
             this.renderHealth();
         }
     }
-    
+
     private void renderHealth() {
         final ScaledResolution scaledResolution = new ScaledResolution(Health.mc);
         final GuiScreen screen = Health.mc.currentScreen;

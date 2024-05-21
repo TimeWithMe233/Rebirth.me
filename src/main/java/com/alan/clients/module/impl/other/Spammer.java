@@ -26,7 +26,6 @@ public final class  Spammer extends Module {
     public final Listener<PreMotionEvent> onPreMotionEvent = event -> {
 
         if (ServerUtil.isOnServer("loyisa.cn")) {
-            ChatUtil.display("Upon a request from Loyisa we have blacklisted Loyisa's Test Server from Spammer.");
             this.toggle();
             return;
         }

@@ -80,7 +80,6 @@ public class HytHelper extends Module {
             }
             if (autogg.getValue()) {
                 if (ServerUtil.isOnServer("loyisa.cn")) {
-                    ChatUtil.display("[AutoGG]This mod unable to use in this server");
                 } else {
                     String customMessage = this.messages.getValue().replace("%%player%%", mc.thePlayer.getCommandSenderName()).replace("%%target%%", target.getCommandSenderName()).replace("%%killcount%%", String.valueOf(kill)).replace("%%clientname%%", Client.NAME).replace("%%clientversion%%", Client.VERSION);
                     String message = getMessage(target.getCommandSenderName(), customMessage).replace("%%player%%", mc.thePlayer.getCommandSenderName()).replace("%%target%%", target.getCommandSenderName()).replace("%%killcount%%", String.valueOf(kill)).replace("%%clientname%%", Client.NAME).replace("%%clientversion%%", Client.VERSION);
@@ -160,7 +159,7 @@ public class HytHelper extends Module {
                     if (WeaponDetection.isRegen(player) > 0 && !flaggedEntity.contains(player)) {
                         flaggedEntity.add(player);
                         if (tarckNoti.getValue()) {
-                            NotificationComponent.post( "PlayerTrack", player.getCommandSenderName() + "拥有恢复药水", 15);
+                            NotificationComponent.post( "PlayerTrack", player.getCommandSenderName() + "拥有恢复药水", 500);
                         }
                         name = player.getCommandSenderName();
                         regen = true;
@@ -168,7 +167,7 @@ public class HytHelper extends Module {
                     if (WeaponDetection.isHoldingGodAxe(player) && !flaggedEntity.contains(player)) {
                         flaggedEntity.add(player);
                         if (tarckNoti.getValue()) {
-                            NotificationComponent.post( "PlayerTrack", player.getCommandSenderName() + "正在使用秒人斧", 15);
+                            NotificationComponent.post( "PlayerTrack", player.getCommandSenderName() + "正在使用秒人斧", 500);
                         }
                         name = player.getCommandSenderName();
                         godaxe = true;
@@ -176,7 +175,7 @@ public class HytHelper extends Module {
                     if (WeaponDetection.isKBBall(player.getHeldItem()) && !flaggedEntity.contains(player)) {
                         flaggedEntity.add(player);
                         if (tarckNoti.getValue()) {
-                            NotificationComponent.post( "PlayerTrack", player.getCommandSenderName() + "正在使用击退球,请小心点", 15);
+                            NotificationComponent.post( "PlayerTrack", player.getCommandSenderName() + "正在使用击退球,请小心点", 500);
                         }
                         name = player.getCommandSenderName();
                         kbball = true;
@@ -188,7 +187,7 @@ public class HytHelper extends Module {
                     gapple = true;
                     flaggedEntity.add(player);
                     if (tarckNoti.getValue()) {
-                        NotificationComponent.post( "PlayerTrack", player.getCommandSenderName() + "拥有附魔金苹果", 15);
+                        NotificationComponent.post( "PlayerTrack", player.getCommandSenderName() + "拥有附魔金苹果", 500);
                     }
                 }
             }

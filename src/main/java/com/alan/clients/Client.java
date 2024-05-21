@@ -26,6 +26,7 @@ import com.alan.clients.ui.theme.ThemeManager;
 import com.alan.clients.util.Local;
 import com.alan.clients.util.Local2;
 import com.alan.clients.util.ReflectionUtil;
+import com.alan.clients.util.SlotSpoofHandler;
 import com.alan.clients.util.file.FileManager;
 import com.alan.clients.util.file.FileType;
 import com.alan.clients.util.file.alt.AltManager;
@@ -42,6 +43,7 @@ import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiIngame;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.multiplayer.GuiConnecting;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -107,6 +109,7 @@ public enum Client {
     @Setter
     private DataManager dataManager;
     private String local;
+    private SlotSpoofHandler slotSpoofHandler;
     private Local2 local2;
     private CheatDetector cheatDetector;
 
@@ -161,6 +164,7 @@ public enum Client {
         Minecraft mc = Minecraft.getMinecraft();
         MathConst.calculate();
 
+        slotSpoofHandler = new SlotSpoofHandler();
         // Compatibility
         mc.gameSettings.guiScale = 2;
         mc.gameSettings.ofFastRender = false;
@@ -270,5 +274,6 @@ public enum Client {
     public void terminate() {
         this.configFile.write();
     }
+
 }
 

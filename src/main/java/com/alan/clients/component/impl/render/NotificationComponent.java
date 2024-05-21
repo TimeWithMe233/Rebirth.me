@@ -58,7 +58,7 @@ public class NotificationComponent extends Component {
 
             RenderUtil.roundedRectangle(POSITION.x, POSITION.y, SCALE.x, SCALE.y, 13, ColorUtil.withAlpha(getTheme().getBackgroundShade(), (int) (getTheme().getBackgroundShade().getAlpha() * opacity)));
 
-            RenderUtil.roundedRectangle(POSITION.x + SPACER, POSITION.y + SPACER, ICON_SCALE.x, ICON_SCALE.y, 8, ColorUtil.withAlpha(Color.WHITE, (int) (255 * opacity)));
+//            RenderUtil.roundedRectangle(POSITION.x + SPACER, POSITION.y + SPACER, ICON_SCALE.x, ICON_SCALE.y, 8, ColorUtil.withAlpha(Color.WHITE, (int) (255 * opacity)));
 
             Font bold = FontManager.getNunitoBold(15);
             Font light = FontManager.getNunito(15);

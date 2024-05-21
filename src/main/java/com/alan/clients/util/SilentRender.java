@@ -5,8 +5,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public enum SilentRender {
     OFF("Off"),
-    Lavender("Lavender"),
-    Lavender2("Lavender2"),
+    Rebirth("Rebirth"),
+    Rebirth2("Rebirth2"),
     New("New");
     String name;
 

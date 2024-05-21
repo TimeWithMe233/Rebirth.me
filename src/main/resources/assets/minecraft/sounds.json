@@ -2025,31 +2025,31 @@
   "rise.toggle.enable": {
     "category": "master",
     "sounds": [
-      "alexander/toggle/enable"
+      "/assets/minecraft/rebirth/toggle/enable"
     ]
   },
   "rise.toggle.disable": {
     "category": "master",
     "sounds": [
-      "alexander/toggle/disable"
+      "/assets/minecraft/rebirth/toggle/disable"
     ]
   },
   "rise.click.standard": {
     "category": "master",
     "sounds": [
-      "alexander/click/standard"
+      "/assets/minecraft/rebirth/click/standard"
     ]
   },
   "rise.click.double": {
     "category": "master",
     "sounds": [
-      "alexander/click/double"
+      "/assets/minecraft/rebirth/click/double"
     ]
   },
   "rise.click.alan": {
     "category": "master",
     "sounds": [
-      "alexander/click/alan"
+      "/assets/minecraft/rebirth/clickalan"
     ]
   }
 }

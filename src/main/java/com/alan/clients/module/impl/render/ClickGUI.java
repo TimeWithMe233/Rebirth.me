@@ -10,6 +10,8 @@ import com.alan.clients.newevent.Priorities;
 import com.alan.clients.newevent.annotations.EventLink;
 import com.alan.clients.newevent.impl.input.KeyboardInputEvent;
 import com.alan.clients.newevent.impl.render.Render2DEvent;
+import com.alan.clients.ui.click.clover.CloverClickGUI;
+import com.alan.clients.ui.click.dropdown.DropdownClickGUI;
 import com.alan.clients.ui.click.other.HanabiClickGUI;
 import com.alan.clients.ui.click.standard.RiseClickGUI;
 import com.alan.clients.util.render.RenderUtil;

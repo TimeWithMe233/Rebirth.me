@@ -2062,6 +2062,10 @@ public abstract class EntityPlayer extends EntityLivingBase implements java.io.S
         this.hasReducedDebug = reducedDebug;
     }
 
+    public String getName() {
+        return this.gameProfile.getName();
+    }
+
     public enum EnumChatVisibility {
         FULL(0, "options.chat.visibility.full"),
         SYSTEM(1, "options.chat.visibility.system"),

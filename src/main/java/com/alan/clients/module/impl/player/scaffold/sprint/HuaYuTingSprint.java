@@ -1,13 +1,12 @@
 package com.alan.clients.module.impl.player.scaffold.sprint;
 
-import com.alan.clients.component.impl.player.RotationComponent;
 import com.alan.clients.module.impl.player.Scaffold;
 import com.alan.clients.newevent.Listener;
 import com.alan.clients.newevent.annotations.EventLink;
 import com.alan.clients.newevent.impl.motion.PreMotionEvent;
-import com.alan.clients.util.interfaces.InstanceAccess;
+import com.alan.clients.util.player.MoveUtil;
 import com.alan.clients.value.Mode;
-import net.minecraft.util.MathHelper;
+import net.minecraft.client.settings.GameSettings;
 
 public class HuaYuTingSprint extends Mode<Scaffold> {
     private boolean needStop = false;
@@ -18,11 +17,20 @@ public class HuaYuTingSprint extends Mode<Scaffold> {
 
     @EventLink
     public final Listener<PreMotionEvent> onPreMotion = event -> {
-        if (Math.abs(MathHelper.wrapAngleTo180_float(InstanceAccess.mc.thePlayer.rotationYaw) -
-                MathHelper.wrapAngleTo180_float(RotationComponent.rotations.x)) > 100) {
-            InstanceAccess.mc.gameSettings.keyBindSprint.setPressed(false);
-            InstanceAccess.mc.thePlayer.setSprinting(false);
+        if ((mc.thePlayer.offGroundTicks < 3 || mc.thePlayer.motionY > 0) && MoveUtil.isMoving() && !mc.thePlayer.isCollidedHorizontally &&
+                !mc.thePlayer.isSneaking() && !mc.thePlayer.isUsingItem()) {
+            mc.gameSettings.keyBindSprint.setPressed(true);
+            needStop = true;
+        } else {
+            mc.gameSettings.keyBindForward.setPressed(!needStop && GameSettings.isKeyDown(mc.gameSettings.keyBindForward));
+            mc.gameSettings.keyBindSprint.setPressed(false);
+            mc.thePlayer.setSprinting(false);
+            needStop = false;
         }
     };
 
+    @Override
+    public void onEnable() {
+        mc.gameSettings.keyBindSprint.setPressed(true);
+    }
 }

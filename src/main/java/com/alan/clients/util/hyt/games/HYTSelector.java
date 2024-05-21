@@ -92,7 +92,7 @@ public class HYTSelector
         FontManager.arial20.drawCenteredString("HytGermmod", (float)x + 57.0f, y + 25, -1);
         FontManager.arial16.drawStringWithShadow("1.1", (float)x + 28.0f+   FontManager.arial20.getStringWidth("HytGermmod"), y + 21,
                 getTheme().getFirstColor().getRGB());
-        FontManager.arial16.drawStringWithShadow("Lavender Team", (float)x + 25.0f, y + height-12,
+        FontManager.arial16.drawStringWithShadow("Rebirth Team", (float)x + 25.0f, y + height-12,
                 getTheme().getFirstColor().getRGB());
         float cY = y + 50;
         float cY2 = y + 30;

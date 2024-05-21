@@ -5,9 +5,8 @@ import com.alan.clients.component.impl.render.ProjectionComponent;
 import com.alan.clients.module.Module;
 import com.alan.clients.module.api.Category;
 import com.alan.clients.module.api.ModuleInfo;
-import com.alan.clients.module.impl.render.targetinfo.ExhibitionTargetInfo;
-import com.alan.clients.module.impl.render.targetinfo.ModernTargetInfo;
-import com.alan.clients.module.impl.render.targetinfo.MoonTargetInfo;
+import com.alan.clients.module.impl.combat.KillAura;
+import com.alan.clients.module.impl.render.targetinfo.*;
 import com.alan.clients.newevent.Listener;
 import com.alan.clients.newevent.annotations.EventLink;
 import com.alan.clients.newevent.impl.motion.PreMotionEvent;
@@ -35,12 +34,13 @@ public final class TargetInfo extends Module {
 
     private final ModeValue mode = new ModeValue("Mode", this)
             .add(new ModernTargetInfo("Modern", this))
-            .add(new ExhibitionTargetInfo("Etb", this))
-            .add(new MoonTargetInfo("Moon", this))
-            .setDefault("Moon");
+            .add(new MoonTargetInfo("Moon",this))
+            .add(new ExhibitionTargetInfo("Exhibition",this))
+            .add(new ShineTargetInfo("All",this))
+            .setDefault("Modern");
 
-    public BooleanValue multi_targetHUD = new BooleanValue("Multi", this, false);
     public final DragValue positionValue = new DragValue("Position", this, new Vector2d(200, 200));
+    public BooleanValue multi_targetHUD = new BooleanValue("Multi", this, false);
     public final BooleanValue followPlayer = new BooleanValue("Follow Player", this, false);
 
     public Vector2d position = new Vector2d(0, 0);
@@ -48,9 +48,6 @@ public final class TargetInfo extends Module {
     public double distanceSq;
     public boolean inWorld;
     public StopWatch stopwatch = new StopWatch();
-    public static boolean rendertitle() {
-        return mc.currentScreen instanceof GuiChat;
-    }
 
     @EventLink()
     public final Listener<PreMotionEvent> onPreMotionEvent = event -> {
@@ -83,7 +80,7 @@ public final class TargetInfo extends Module {
 
     @EventLink()
     public final Listener<Render2DEvent> onRender2D = event -> {
-
+        final KillAura aura =getModule(KillAura.class);
         if (target == null) {
             return;
         }

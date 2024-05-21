@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 public enum Rotation {
     OFF("Off"),
     Rise("Rise"),
-    Lavender("Lavender"),
+    Rebirth("Rebirth"),
     New("New");
     String name;
 

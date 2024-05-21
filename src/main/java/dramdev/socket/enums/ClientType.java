@@ -11,6 +11,7 @@ public enum ClientType {
     LAVENDER("Lavender"),
     Kura("Kura"),
     Rebirth("Rebirth"),
+    ArtDay("ArtDay"),
     FoxSense("FoxSense"),
     Dominic("Dominic"),
     Artist("Artist"),
