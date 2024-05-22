@@ -638,23 +638,21 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         if (util$enumos != Util.EnumOS.OSX) {
             InputStream inputstream = null;
             InputStream inputstream1 = null;
-            String r16xlogo = "/assets/minecraft/icons/icon_16x16.png";
-            String r32xlogo = "/assets/minecraft/icons/icon_32x32.png";
 
             try {
-//                inputstream = this.mcDefaultResourcePack.getInputStreamAssets(new ResourceLocation("/assets/minecraft/icons/icon_16x16.png"));
-//                inputstream1 = this.mcDefaultResourcePack.getInputStreamAssets(new ResourceLocation("/assets/minecraft/icons/icon_32x32.png"));
-                inputstream = this.mcDefaultResourcePack.getInputStreamAssets(new ResourceLocation("icons/icon_16x16.png"));
-                inputstream1 = this.mcDefaultResourcePack.getInputStreamAssets(new ResourceLocation("icons/icon_32x32.png"));
+                inputstream = this.mcDefaultResourcePack.getInputStream(new ResourceLocation("rebirth/icon/icon16.png"));
+                inputstream1 = this.mcDefaultResourcePack.getInputStream(new ResourceLocation("rebirth/icon/icon32.png"));
+
                 if (inputstream != null && inputstream1 != null) {
                     Display.setIcon(new ByteBuffer[]{this.readImageToBuffer(inputstream), this.readImageToBuffer(inputstream1)});
                 }
-            } catch (final IOException ioexception) {
+            } catch (IOException ioexception) {
                 logger.error("Couldn't set icon", ioexception);
             } finally {
                 IOUtils.closeQuietly(inputstream);
                 IOUtils.closeQuietly(inputstream1);
             }
+
         }
     }
 
