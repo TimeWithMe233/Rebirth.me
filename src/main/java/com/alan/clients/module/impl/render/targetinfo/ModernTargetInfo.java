@@ -36,9 +36,7 @@ import static com.alan.clients.util.animation.Easing.*;
 public class ModernTargetInfo extends Mode<TargetInfo> {
 
     private final BooleanValue particles = new BooleanValue("Particles", this, true);
-
-    private final Font productSansLight = FontManager.getProductSansLight(22);
-    private final Font productSansMedium = FontManager.getProductSansMedium(22);
+    private final Font productSansS = FontManager.getProductSansRegular(22);
 
     private final ModeValue backgroundMode = new ModeValue("Background Mode", this) {{
         add(new SubMode("Glass"));
@@ -79,9 +77,9 @@ public class ModernTargetInfo extends Mode<TargetInfo> {
         double x = this.targetInfoModule.position.x;
         double y = this.targetInfoModule.position.y;
 
-        double nameWidth = productSansMedium.width(name);
+        double nameWidth = productSansS.width(name);
         double health = Math.min(!this.targetInfoModule.inWorld ? 0 : MathUtil.round(((AbstractClientPlayer) target).getHealth(), 1), ((AbstractClientPlayer) target).getMaxHealth());
-        double healthTextWidth = productSansMedium.width(String.valueOf(health));
+        double healthTextWidth = productSansS.width(String.valueOf(health));
         double healthBarWidth = Math.max(nameWidth + 35 - healthTextWidth, 65);
 
         healthAnimation.run((health / ((AbstractClientPlayer) target).getMaxHealth()) * healthBarWidth);
@@ -125,8 +123,8 @@ public class ModernTargetInfo extends Mode<TargetInfo> {
             RenderUtil.drawRoundedGradientRect(x, y, width - 1, height, 14, background1, background2, true);
 
             // Render name
-            productSansLight.drawStringWithShadow(Localization.get("ui.targethud.name"), x + EDGE_OFFSET + faceScale + PADDING, y + EDGE_OFFSET + INDENT + 2, Color.WHITE.hashCode());
-            productSansMedium.drawStringWithShadow(name, x + EDGE_OFFSET + faceScale + PADDING + productSansLight.width(Localization.get("ui.targethud.name")) + 3, y + EDGE_OFFSET + INDENT + 2.5, accent1.hashCode());
+            productSansS.drawStringWithShadow(Localization.get("ui.targethud.name"), x + EDGE_OFFSET + faceScale + PADDING, y + EDGE_OFFSET + INDENT + 2, Color.WHITE.hashCode());
+            productSansS.drawStringWithShadow(name, x + EDGE_OFFSET + faceScale + PADDING + productSansS.width(Localization.get("ui.targethud.name")) + 3, y + EDGE_OFFSET + INDENT + 2.5, accent1.hashCode());
 
             GlStateManager.popMatrix();
 
@@ -151,7 +149,7 @@ public class ModernTargetInfo extends Mode<TargetInfo> {
             RenderUtil.drawRoundedGradientRect(x + EDGE_OFFSET + faceScale + PADDING, y + EDGE_OFFSET + faceScale - INDENT - 7,
                     healthRemainingWidth, 6, 3, accent2, accent1, true);
 
-            productSansMedium.drawStringWithShadow(String.valueOf(health),
+            productSansS.drawStringWithShadow(String.valueOf(health),
                     x + EDGE_OFFSET + faceScale + PADDING + healthBarWidth + INDENT,
                     y + EDGE_OFFSET + faceScale - INDENT - 8, accent1.hashCode());
             GlStateManager.popMatrix();

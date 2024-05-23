@@ -57,6 +57,7 @@ public interface InstanceAccess {
     Font nunitoSmall = FontManager.getNunito(16);
 
     Font museoLarge = FontManager.getMuseo(42);
+    Font sansRegular = FontManager.getProductSansRegular(20);
     Font museoNormal = FontManager.getMuseo(20);
     Font museoSmall = FontManager.getMuseo(16);
 

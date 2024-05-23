@@ -40,7 +40,7 @@ public class MoonTargetInfo extends Mode<TargetInfo> {
 
     private final Font sfuiBold18 = FontManager.getNunitoLightCN(18);
     private final Font sfuiBold13 = FontManager.getNunitoLightCN(13);
-
+    private final Font productSansS = FontManager.getProductSansRegular(18);
     private static double lastP = 0, diffP = 0;
 
     private static final Animation animation = new Animation(Easing.EASE_IN_BACK, 2 * 150);
@@ -84,7 +84,7 @@ public class MoonTargetInfo extends Mode<TargetInfo> {
         if (e.getCurrentEquippedItem() != null) {
         }
 
-        float rectLength = 35 + sfuiBold18.width(e.getCommandSenderName()) + 40, health = (float) (Math.round(hp * 100.0) / 100.0);
+        float rectLength = 35 + productSansS.width(e.getCommandSenderName()) + 40, health = (float) (Math.round(hp * 100.0) / 100.0);
 
         if (health > maxHP) {
             health *= maxHP / health;
@@ -147,7 +147,7 @@ public class MoonTargetInfo extends Mode<TargetInfo> {
 //        RenderUtils.drawRoundedRect(i2 + 40, i1 + 24.5f, (float) (percent * space + diffP * space), 8.5f, 5, new Color(hudColor).getRGB());
         sfuiBold13.drawStringWithShadow(text + "HP", i2 + 40,
                 i1 + 15, 0xffffffff);
-        sfuiBold18.drawStringWithShadow(e.getCommandSenderName(), i2 + 40, i1 + 4, 0xffffffff);
+        productSansS.drawStringWithShadow(e.getCommandSenderName(), i2 + 40, i1 + 4, 0xffffffff);
         //   mc.fontRendererCrack.drawString(String.format("%.1f", (e.getHealth() + e.getAbsorptionAmount()) / 2), i2 + 41, i1 + 27, 0xffffffff, true);
         //   mc.fontRendererCrack.drawString(" \u2764", i2 + 40 + mc.fontRendererCrack.getStringWidth(String.format("%.1f", (e.getHealth() + e.getAbsorptionAmount()) / 2.0F)), i1 + 27, hudColor, true);
         RenderUtil.scaleEnd();

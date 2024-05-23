@@ -38,6 +38,7 @@ public final class KillEffect extends Module {
     public static int hytkills = 0;
     private EntityLivingBase target;
     private final ContinualAnimation anim = new ContinualAnimation();
+    final IRC ircmod = Client.INSTANCE.getModuleManager().get(IRC.class);
 
     public double easeInOutCirc(double x) {
         return x < 0.5 ? (1.0 - Math.sqrt(1.0 - Math.pow(2.0 * x, 2.0))) / 2.0 : (Math.sqrt(1.0 - Math.pow(-2.0 * x + 2.0, 2.0)) + 1.0) / 2.0;
@@ -90,6 +91,9 @@ public final class KillEffect extends Module {
             ++hytkills;
             if (tipsKillsValue.getValue()) {
                 NotificationComponent.post( "Kills +1", "Killed " + this.kills + " Players.  ",500);
+            }
+            if(ircmod.sendKills.getValue()){
+                Client.INSTANCE.getSocketManager().chat("I Kills "+kills+" Players this round.");
             }
             if (killSoundValue.getValue()) {
                 this.playSound(SoundType.KILL, 0.75f);

@@ -91,8 +91,8 @@ import static com.alan.clients.module.impl.render.KillEffect.hytkills;
 
         private void handleWin() {
             wins++;
-            if (ircmod.sendKills.getValue()){
-                NotificationComponent.post( "HytAutoPlay", "You Killed "+hytkills +" Players this game");
+            NotificationComponent.post( "HytAutoPlay", "You Killed "+hytkills +" Players this game");
+            if (ircmod.sendwins.getValue()){
                 Client.INSTANCE.getSocketManager().chat("I won " +wins +" games. And I Killed " + hytkills + " Players. this game");
                 hytkills = 0;
             }

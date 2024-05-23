@@ -34,6 +34,7 @@ public class ExhibitionTargetInfo extends Mode<TargetInfo> {
 
     private final Font sfuiBold18 = FontManager.getNunitoLightCN(18);
     private final Font sfuiBold13 = FontManager.getNunitoLightCN(12);
+    private final Font productSansS = FontManager.getProductSansRegular(18);
     private Animation openingAnimation = new Animation(EASE_OUT_ELASTIC, 500);
 
     @EventLink()
@@ -79,7 +80,7 @@ public class ExhibitionTargetInfo extends Mode<TargetInfo> {
             Gui.drawRect2(x + 3, y + 3, size, .5, lightest.getRGB());
 
 
-            sfuiBold18.drawString(target.getCommandSenderName(), x + 8 + size, y + 6, textColor.getRGB());
+            productSansS.drawString(target.getCommandSenderName(), x + 8 + size, y + 6, textColor.getRGB());
             float healthValue = (((AbstractClientPlayer) target).getHealth() + ((AbstractClientPlayer) target).getAbsorptionAmount()) / (((AbstractClientPlayer) target).getMaxHealth() + ((AbstractClientPlayer) target).getAbsorptionAmount());
 
             Color healthColor = healthValue > .5f ? com.alan.clients.module.impl.render.targetinfo.utils.tenacity.utils.render.ColorUtil.interpolateColorC(new Color(255, 255, 10), new Color(10, 255, 10), (healthValue - .5f) / .5f) :
