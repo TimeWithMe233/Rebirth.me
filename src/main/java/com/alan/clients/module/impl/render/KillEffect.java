@@ -92,7 +92,7 @@ public final class KillEffect extends Module {
             if (tipsKillsValue.getValue()) {
                 NotificationComponent.post( "Kills +1", "Killed " + this.kills + " Players.  ",500);
             }
-            if(ircmod.sendKills.getValue()){
+            if(ircmod.sendkills.getValue()){
                 Client.INSTANCE.getSocketManager().chat("I Kills "+kills+" Players this round.");
             }
             if (killSoundValue.getValue()) {
