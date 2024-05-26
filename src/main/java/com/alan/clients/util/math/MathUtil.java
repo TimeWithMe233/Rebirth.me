@@ -5,6 +5,7 @@ import net.minecraft.util.MathHelper;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.security.SecureRandom;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -26,19 +27,45 @@ public class MathUtil {
         if (min == max) {
             return min;
         } else if (min > max) {
-            final double d = min;
+            double temp = min;
             min = max;
-            max = d;
+            max = temp;
         }
-        return ThreadLocalRandom.current().nextDouble(min, max);
+        return min + ThreadLocalRandom.current().nextDouble() * (max - min);
     }
-
+    public static float round2(double value) {
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        return bd.floatValue();
+    }
+    public static int getRandom2(final int min, final int max) {
+        if (max < min) {
+            return 0;
+        }
+        return min + MathUtil.random.nextInt(max - min + 1);
+    }
+    public static int getRandomNumberUsingNextInt(final int min, final  int max) {
+        final Random random = new Random();
+        return random.nextInt(max - min) + min;
+    }
+    public static int interpolateInt(final int oldValue, final int newValue, final double interpolationValue) {
+        return (int) interpolate(oldValue, newValue, (float)interpolationValue);
+    }
+    public static float interpolate(final double oldValue, final double newValue, final double interpolationValue) {
+        return (float) (oldValue + (newValue - oldValue) * interpolationValue);
+    }
     public double round(final double value, final int places) {
         final BigDecimal bigDecimal = BigDecimal.valueOf(value);
 
         return bigDecimal.setScale(places, RoundingMode.HALF_UP).doubleValue();
     }
-
+    public static int getRandomInRange(final int min, final int max) {
+        return (int)(Math.random() * (max - min) + min);
+    }
+    public static double getRandomInRange(final double min, final double max) {
+        final SecureRandom random = new SecureRandom();
+        return (min == max) ? min : (random.nextDouble() * (max - min) + min);
+    }
     public double round(final double value, final int scale, final double inc) {
         final double halfOfInc = inc / 2.0;
         final double floored = Math.floor(value / inc) * inc;
@@ -89,15 +116,5 @@ public class MathUtil {
      */
     public double clamp(double min, double max, double n) {
         return Math.max(min, Math.min(max, n));
-    }
-
-    public static int getRandom2(final int min, final int max) {
-        if (max < min) {
-            return 0;
-        }
-        return min + MathUtil.random.nextInt(max - min + 1);
-    }
-    public static float interpolate(final double oldValue, final double newValue, final double interpolationValue) {
-        return (float) (oldValue + (newValue - oldValue) * interpolationValue);
     }
 }

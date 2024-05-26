@@ -15,6 +15,7 @@ public enum ClientType {
     FoxSense("FoxSense"),
     Dominic("Dominic"),
     Artist("Artist"),
+    EDFDP("Edfdp"),
     Salt("Salt"),
     Forever("Forever"),
     NEVER("Never");

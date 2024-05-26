@@ -23,6 +23,7 @@ public class Animation {
         this.duration = duration;
     }
 
+
     /**
      * Updates the animation by using the easing function and time
      *
@@ -66,4 +67,12 @@ public class Animation {
         this.startValue = value;
         this.finished = false;
     }
+    public void reverse() {
+        double temp = this.startValue;
+        this.startValue = this.destinationValue;
+        this.destinationValue = temp;
+        this.startTime = System.currentTimeMillis() - (long) (this.getProgress() * this.duration);
+        this.finished = false;
+    }
+
 }

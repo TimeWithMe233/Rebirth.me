@@ -1033,4 +1033,8 @@ public final class RenderUtil implements InstanceAccess {
     }
 
 
+    public static void setAlphaLimit(float limit) {
+        GlStateManager.enableAlpha();
+        GlStateManager.alphaFunc(GL_GREATER, (float) (limit * .01));
+    }
 }

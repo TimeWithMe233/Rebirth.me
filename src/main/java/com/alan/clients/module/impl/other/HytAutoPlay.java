@@ -114,7 +114,7 @@ import static com.alan.clients.module.impl.render.KillEffect.hytkills;
         banned++;
         NotificationComponent.post("BanChecker", "A player was banned.", 3);
         if (ircmod.sendbans.getValue()) {
-            Client.INSTANCE.getSocketManager().chat(banned + "Players were banned in this game.");
+            Client.INSTANCE.getSocketManager().chat(banned + " Players were banned in this game.");
         }
     }
 }

@@ -34,6 +34,7 @@ import java.util.stream.Stream;
 public class TargetManager extends ConcurrentLinkedQueue<Entity> implements InstanceAccess {
 
     boolean players = true;
+    boolean irc = true;
     boolean invisibles = false;
     boolean animals = false;
     boolean mobs = false;
@@ -53,6 +54,7 @@ public class TargetManager extends ConcurrentLinkedQueue<Entity> implements Inst
         }
     };
 
+    // 直接试试吧，这个
     private boolean checker(Entity entity) {
         return (players && entity instanceof EntityPlayer && ((EntityPlayer) entity).getHealth() > 0 && (!teams || !((EntityPlayer) entity).isOnSameTeam(mc.thePlayer))) || (invisibles && entity.isInvisible()) || (animals && (entity instanceof EntityAnimal || entity instanceof EntitySquid || entity instanceof EntityGolem ||
                 entity instanceof EntityBat)) || (mobs && (entity instanceof EntityMob || entity instanceof EntityVillager || entity instanceof EntitySlime ||
@@ -63,6 +65,7 @@ public class TargetManager extends ConcurrentLinkedQueue<Entity> implements Inst
         try {
             KillAura killAura = getModule(KillAura.class);
             players = killAura.player.getValue();
+            irc = killAura.irc.getValue();
             invisibles = killAura.invisibles.getValue();
             animals = killAura.animals.getValue();
             mobs = killAura.mobs.getValue();

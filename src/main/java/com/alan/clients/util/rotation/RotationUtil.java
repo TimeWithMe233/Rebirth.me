@@ -1,7 +1,6 @@
 package com.alan.clients.util.rotation;
 
 import com.alan.clients.util.RayCastUtil;
-import com.alan.clients.util.chat.ChatUtil;
 import com.alan.clients.util.interfaces.InstanceAccess;
 import com.alan.clients.util.math.MathConst;
 import com.alan.clients.util.vector.Vector2f;
@@ -18,9 +17,22 @@ import net.minecraft.util.*;
 
 @UtilityClass
 public class RotationUtil implements InstanceAccess {
-
-    public Vector2f calculate(final Vector3d from, final Vector3d to) {
-        final Vector3d diff = to.subtract(from);
+    public static Vec3 getNearestPointBB(final Vec3 eye, final AxisAlignedBB box) {
+        final double[] origin = { eye.xCoord, eye.yCoord, eye.zCoord };
+        final double[] destMins = { box.minX, box.minY, box.minZ };
+        final double[] destMaxs = { box.maxX, box.maxY, box.maxZ };
+        for (int i = 0; i < 3; ++i) {
+            if (origin[i] > destMaxs[i]) {
+                origin[i] = destMaxs[i];
+            }
+            else if (origin[i] < destMins[i]) {
+                origin[i] = destMins[i];
+            }
+        }
+        return new Vec3(origin[0], origin[1], origin[2]);
+    }
+    public Vector2f calculate(final com.alan.clients.util.vector.Vector3d from, final com.alan.clients.util.vector.Vector3d to) {
+        final com.alan.clients.util.vector.Vector3d diff = to.subtract(from);
         final double distance = Math.hypot(diff.getX(), diff.getZ());
         final float yaw = (float) (MathHelper.atan2(diff.getZ(), diff.getX()) * MathConst.TO_DEGREES) - 90.0F;
         final float pitch = (float) (-(MathHelper.atan2(diff.getY(), distance) * MathConst.TO_DEGREES));
@@ -57,14 +69,14 @@ public class RotationUtil implements InstanceAccess {
     }
 
     public Vector2f calculate(final Vec3 to, final EnumFacing enumFacing) {
-        return calculate(new Vector3d(to.xCoord, to.yCoord, to.zCoord), enumFacing);
+        return calculate(new com.alan.clients.util.vector.Vector3d(to.xCoord, to.yCoord, to.zCoord), enumFacing);
     }
 
     public Vector2f calculate(final Vec3 to) {
-        return calculate(mc.thePlayer.getCustomPositionVector().add(0, mc.thePlayer.getEyeHeight(), 0), new Vector3d(to.xCoord, to.yCoord, to.zCoord));
+        return calculate(mc.thePlayer.getCustomPositionVector().add(0, mc.thePlayer.getEyeHeight(), 0), new com.alan.clients.util.vector.Vector3d(to.xCoord, to.yCoord, to.zCoord));
     }
 
-    public Vector2f calculate(final Vector3d to) {
+    public Vector2f calculate(final com.alan.clients.util.vector.Vector3d to) {
         return calculate(mc.thePlayer.getCustomPositionVector().add(0, mc.thePlayer.getEyeHeight(), 0), to);
     }
 
@@ -81,15 +93,22 @@ public class RotationUtil implements InstanceAccess {
         }
         return new Vector2f(yaw, pitch);
     }
-
-    public Vector2f calculate(final Vector3d position, final EnumFacing enumFacing) {
-        double x = position.getX() + 0.5D;
-        double y = position.getY() + 0.5D;
-        double z = position.getZ() + 0.5D;
-
-        x += (double) enumFacing.getDirectionVec().getX() * 0.5D;
-        y += (double) enumFacing.getDirectionVec().getY() * 0.5D;
-        z += (double) enumFacing.getDirectionVec().getZ() * 0.5D;
+    public static float[] getRotationsNeededBlock(final double x, final double y, final double z) {
+        final double diffX = x + 0.5 - Minecraft.getMinecraft().thePlayer.posX;
+        final double diffZ = z + 0.5 - Minecraft.getMinecraft().thePlayer.posZ;
+        final double diffY = y + 0.5 - (Minecraft.getMinecraft().thePlayer.posY + Minecraft.getMinecraft().thePlayer.getEyeHeight());
+        final double dist = MathHelper.sqrt_double(diffX * diffX + diffZ * diffZ);
+        final float yaw = (float)(Math.atan2(diffZ, diffX) * 180.0 / 3.141592653589793) - 90.0f;
+        final float pitch = (float)(-Math.atan2(diffY, dist) * 180.0 / 3.141592653589793);
+        return new float[] { Minecraft.getMinecraft().thePlayer.rotationYaw + MathHelper.wrapAngleTo180_float(yaw - Minecraft.getMinecraft().thePlayer.rotationYaw), Minecraft.getMinecraft().thePlayer.rotationPitch + MathHelper.wrapAngleTo180_float(pitch - Minecraft.getMinecraft().thePlayer.rotationPitch) };
+    }
+    public static Vector2f calculate(final com.alan.clients.util.vector.Vector3d position, final EnumFacing enumFacing) {
+        double x = position.getX() + 0.5;
+        double y = position.getY() + 0.5;
+        double z = position.getZ() + 0.5;
+        x += enumFacing.getDirectionVec().getX() * 0.5;
+        y += enumFacing.getDirectionVec().getY() * 0.5;
+        z += enumFacing.getDirectionVec().getZ() * 0.5;
         return calculate(new Vector3d(x, y, z));
     }
 
@@ -110,12 +129,6 @@ public class RotationUtil implements InstanceAccess {
         return new Vector2f(yaw, MathHelper.clamp_float(pitch, -90, 90));
     }
 
-    public Vector2f relateToPlayerRotation(final Vector2f rotation) {
-        final Vector2f previousRotation = mc.thePlayer.getPreviousRotation();
-        final float yaw = previousRotation.x + MathHelper.wrapAngleTo180_float(rotation.x - previousRotation.x);
-        final float pitch = MathHelper.clamp_float(rotation.y, -90, 90);
-        return new Vector2f(yaw, pitch);
-    }
 
     public Vector2f resetRotation(final Vector2f rotation) {
         if (rotation == null) {
@@ -174,20 +187,5 @@ public class RotationUtil implements InstanceAccess {
         }
 
         return new Vector2f(yaw, pitch);
-    }
-
-    public static Vec3 getNearestPointBB(final Vec3 eye, final AxisAlignedBB box) {
-        final double[] origin = { eye.xCoord, eye.yCoord, eye.zCoord };
-        final double[] destMins = { box.minX, box.minY, box.minZ };
-        final double[] destMaxs = { box.maxX, box.maxY, box.maxZ };
-        for (int i = 0; i < 3; ++i) {
-            if (origin[i] > destMaxs[i]) {
-                origin[i] = destMaxs[i];
-            }
-            else if (origin[i] < destMins[i]) {
-                origin[i] = destMins[i];
-            }
-        }
-        return new Vec3(origin[0], origin[1], origin[2]);
     }
 }

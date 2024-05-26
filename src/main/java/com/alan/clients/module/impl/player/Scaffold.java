@@ -65,7 +65,7 @@ import java.util.Objects;
 import java.util.Random;
 
 /**
- * @author Fix By Rebirth
+ * @author Fix By Lavender
  * @since ??/??/21
  */
 
@@ -176,7 +176,7 @@ public class Scaffold extends Module {
         if (isNull()) return;
         final Packet<?> packet = event.getPacket();
         if (event.getPacket() instanceof S08PacketPlayerPosLook && autodis.getValue()) {
-            NotificationComponent.post( "Flag Detector", "Scaffold disabled due to " + (InstanceAccess.mc.thePlayer == null || InstanceAccess.mc.thePlayer.ticksExisted < 5 ? "world change" : "lagback"), 500);
+            NotificationComponent.post("Flag Detector", "Scaffold disabled due to " + (InstanceAccess.mc.thePlayer == null || InstanceAccess.mc.thePlayer.ticksExisted < 5 ? "world change" : "lagback"), 500);
             this.setEnabled(false);
         }
         if (packet instanceof S2FPacketSetSlot) {
@@ -446,7 +446,7 @@ public class Scaffold extends Module {
     public final Listener<PreUpdateEvent> onPreUpdate = event -> {
         if (isNull()) return;
         // Getting ItemSlot
-        SlotComponent.setSlot(SlotUtil.findBlock(), render.getValue()); // it must work in PreUpdate.
+        SlotComponent.setSlot(SlotUtil.findBlock(), render.getValue());// it must work in PreUpdate.
         if (placeTime.getValue().getName().equalsIgnoreCase("Pre"))
             work();
     };
@@ -483,14 +483,13 @@ public class Scaffold extends Module {
 
     @EventLink()
     public final Listener<Render3DEvent> onRender3D = event -> {
-        Color themecolor = this.getTheme().getFirstColor();
         if (!markValue.getValue())
             return;
         if (targetBlock == null)return;
         for (int i = 0; i < (2); i++) {
             final BlockPos blockPos = new BlockPos(InstanceAccess.mc.thePlayer.posX + (InstanceAccess.mc.thePlayer.getHorizontalFacing() == EnumFacing.WEST ? -i : InstanceAccess.mc.thePlayer.getHorizontalFacing() == EnumFacing.EAST ? i : 0), InstanceAccess.mc.thePlayer.posY - (InstanceAccess.mc.thePlayer.posY == (int) InstanceAccess.mc.thePlayer.posY + 0.5D ? 0D : 1.0D) - ( 0), InstanceAccess.mc.thePlayer.posZ + (InstanceAccess.mc.thePlayer.getHorizontalFacing() == EnumFacing.NORTH ? -i : InstanceAccess.mc.thePlayer.getHorizontalFacing() == EnumFacing.SOUTH ? i : 0));
             if (BlockUtil.isReplaceable(blockPos)) {
-                RenderUtil.drawBlockBox(blockPos, themecolor, false);
+                RenderUtil.drawBlockBox(blockPos, new Color(246, 0, 0, 255), false);
                 break;
             }
         }

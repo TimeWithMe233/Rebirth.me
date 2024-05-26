@@ -56,4 +56,16 @@ public class StencilUtil implements InstanceAccess {
     public static void uninitStencilBuffer() {
         glDisable(GL_STENCIL_TEST);
     }
+
+    public static void initStencilToWrite() {
+        //init
+        mc.getFramebuffer().bindFramebuffer(false);
+        checkSetupFBO(mc.getFramebuffer());
+        glClear(GL_STENCIL_BUFFER_BIT);
+        glEnable(GL_STENCIL_TEST);
+
+        glStencilFunc(GL_ALWAYS, 1, 1);
+        glStencilOp(GL_REPLACE, GL_REPLACE, GL_REPLACE);
+        glColorMask(false, false, false, false);
+    }
 }

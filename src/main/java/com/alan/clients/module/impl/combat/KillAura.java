@@ -48,6 +48,8 @@ import com.viaversion.viarewind.protocol.protocol1_8to1_9.Protocol1_8To1_9;
 import com.viaversion.viaversion.api.Via;
 import com.viaversion.viaversion.api.protocol.packet.PacketWrapper;
 import com.viaversion.viaversion.api.type.Type;
+import dramdev.socket.network.packet.impl.info.OnlineUsersPacket;
+import dramdev.socket.network.user.UserManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityMob;
@@ -153,6 +155,7 @@ public final class KillAura extends Module {
 
     private final BooleanValue showTargets = new BooleanValue("Targets", this, false);
     public final BooleanValue player = new BooleanValue("Player", this, false, () -> !showTargets.getValue());
+    public final BooleanValue irc = new BooleanValue("IRC", this, false, () -> !player.getValue());
     public final BooleanValue invisibles = new BooleanValue("Invisibles", this, false, () -> !showTargets.getValue());
     public final BooleanValue animals = new BooleanValue("Animals", this, false, () -> !showTargets.getValue());
     public final BooleanValue mobs = new BooleanValue("Mobs", this, false, () -> !showTargets.getValue());
@@ -247,6 +250,9 @@ public final class KillAura extends Module {
 
     private boolean isTargetTypeAllowed(Entity entity) {
         if (entity instanceof EntityPlayer) {
+            if (UserManager.getOnlineUsers().stream().anyMatch(user -> user.getUsername().equalsIgnoreCase(((EntityPlayer) entity).getName()))) {
+                return irc.getValue();
+            }
             return player.getValue();
         }
         if (entity instanceof EntityAnimal) {
