@@ -5,6 +5,7 @@ import com.alan.clients.module.impl.movement.Flight;
 import com.alan.clients.newevent.Listener;
 import com.alan.clients.newevent.annotations.EventLink;
 import com.alan.clients.newevent.impl.packet.PacketReceiveEvent;
+import com.alan.clients.util.interfaces.InstanceAccess;
 import com.alan.clients.value.Mode;
 import com.alan.clients.value.impl.NumberValue;
 import net.minecraft.network.Packet;
@@ -29,7 +30,7 @@ public final class StandardVelocity extends Mode<Velocity> {
             fly = getModule(Flight.class);
         }
 
-        if (getParent().onSwing.getValue() || getParent().onSprint.getValue() && !mc.thePlayer.isSwingInProgress || fly.isEnabled()) return;
+        if (getParent().onSwing.getValue() || getParent().onSprint.getValue() && !InstanceAccess.mc.thePlayer.isSwingInProgress || fly.isEnabled()) return;
         final Packet<?> p = event.getPacket();
 
         final double horizontal = this.horizontal.getValue().doubleValue();
@@ -37,23 +38,24 @@ public final class StandardVelocity extends Mode<Velocity> {
 
         if (p instanceof S12PacketEntityVelocity) {
             final S12PacketEntityVelocity wrapper = (S12PacketEntityVelocity) p;
+            if(InstanceAccess.mc.thePlayer!=null) {
+                if (wrapper.getEntityID() == InstanceAccess.mc.thePlayer.getEntityId()) {
+                    if (horizontal == 0) {
+                        event.setCancelled(true);
 
-            if (wrapper.getEntityID() == mc.thePlayer.getEntityId()) {
-                if (horizontal == 0) {
-                    event.setCancelled(true);
-
-                    if (vertical != 0) {
-                        mc.thePlayer.motionY = wrapper.getMotionY() / 8000.0D;
+                        if (vertical != 0) {
+                            InstanceAccess.mc.thePlayer.motionY = wrapper.getMotionY() / 8000.0D;
+                        }
+                        return;
                     }
-                    return;
+
+                    wrapper.motionX *= horizontal / 100;
+                    wrapper.motionY *= vertical / 100;
+                    wrapper.motionZ *= horizontal / 100;
+
+                    event.setPacket(wrapper);
+
                 }
-
-                wrapper.motionX *= horizontal / 100;
-                wrapper.motionY *= vertical / 100;
-                wrapper.motionZ *= horizontal / 100;
-
-                event.setPacket(wrapper);
-
             }
         } else if (p instanceof S27PacketExplosion) {
             final S27PacketExplosion wrapper = (S27PacketExplosion) p;

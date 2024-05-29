@@ -6,6 +6,7 @@ import com.alan.clients.newevent.Listener;
 import com.alan.clients.newevent.annotations.EventLink;
 import com.alan.clients.newevent.impl.motion.PreUpdateEvent;
 import com.alan.clients.newevent.impl.packet.PacketReceiveEvent;
+import com.alan.clients.util.interfaces.InstanceAccess;
 import com.alan.clients.util.packet.PacketUtil;
 import com.alan.clients.value.Mode;
 import com.alan.clients.value.impl.BooleanValue;
@@ -46,7 +47,7 @@ public final class DelayVelocity extends Mode<Velocity> {
 
     @EventLink()
     public final Listener<PacketReceiveEvent> onPacketReceiveEvent = event -> {
-        if (getParent().onSwing.getValue() || getParent().onSprint.getValue() && !mc.thePlayer.isSwingInProgress) return;
+        if (getParent().onSwing.getValue() || getParent().onSprint.getValue() && !InstanceAccess.mc.thePlayer.isSwingInProgress) return;
 
         final Packet<?> p = event.getPacket();
 
@@ -55,14 +56,15 @@ public final class DelayVelocity extends Mode<Velocity> {
 
         if (p instanceof S12PacketEntityVelocity) {
             final S12PacketEntityVelocity wrapper = (S12PacketEntityVelocity) p;
+            if(InstanceAccess.mc.thePlayer!=null) {
+                if (wrapper.getEntityID() == InstanceAccess.mc.thePlayer.getEntityId()) {
+                    wrapper.motionX *= horizontal / 100;
+                    wrapper.motionY *= vertical / 100;
+                    wrapper.motionZ *= horizontal / 100;
 
-            if (wrapper.getEntityID() == mc.thePlayer.getEntityId()) {
-                wrapper.motionX *= horizontal / 100;
-                wrapper.motionY *= vertical / 100;
-                wrapper.motionZ *= horizontal / 100;
-
-                velocityPackets.add(new PacketUtil.TimedPacket(p, System.currentTimeMillis()));
-                event.setCancelled(true);
+                    velocityPackets.add(new PacketUtil.TimedPacket(p, System.currentTimeMillis()));
+                    event.setCancelled(true);
+                }
             }
         } else if (p instanceof S27PacketExplosion) {
             final S27PacketExplosion wrapper = (S27PacketExplosion) p;

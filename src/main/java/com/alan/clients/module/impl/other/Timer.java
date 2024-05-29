@@ -8,6 +8,7 @@ import com.alan.clients.newevent.Listener;
 import com.alan.clients.newevent.Priorities;
 import com.alan.clients.newevent.annotations.EventLink;
 import com.alan.clients.newevent.impl.motion.PreMotionEvent;
+import com.alan.clients.util.interfaces.InstanceAccess;
 import com.alan.clients.util.math.MathUtil;
 import com.alan.clients.value.impl.BoundsNumberValue;
 
@@ -20,6 +21,6 @@ public final class Timer extends Module {
 
     @EventLink(value = Priorities.MEDIUM)
     public final Listener<PreMotionEvent> onPreMotionEvent = event -> {
-        mc.timer.timerSpeed = (float) MathUtil.getRandom(timer.getValue().floatValue(), timer.getSecondValue().floatValue());
+        InstanceAccess.mc.timer.timerSpeed = (float) MathUtil.getRandom(timer.getValue().floatValue(), timer.getSecondValue().floatValue());
     };
 }

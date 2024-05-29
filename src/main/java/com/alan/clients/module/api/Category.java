@@ -21,11 +21,11 @@ public enum Category {
     EXPLOIT("category.exploit", FontManager.getIconsOne(17), "a", 0x6, new CategoryScreen(), Type.RISE),
     GHOST("category.ghost", FontManager.getIconsOne(17), "f", 0x7, new CategoryScreen(), Type.RISE),
     OTHER("category.other", FontManager.getIconsOne(17), "e", 0x8, new CategoryScreen(), Type.RISE),
-    SCRIPT("category.script", FontManager.getIconsThree(17), "m", 0x7, new CategoryScreen(), Type.RISE),
+    INFO("category.script", FontManager.getDream(17), "I", 0x7, new InfoScreen(), Type.BOTH),
 
-    THEME("category.themes", FontManager.getIconsThree(17), "U", 0xA, new ThemeScreen(), Type.BOTH),
+    THEME("category.themes", FontManager.getDream(17), "c", 0xA, new ThemeScreen(), Type.BOTH),
 
-    LANGUAGE("category.language",FontManager.getIconsThree(17), "U",0xA,new LanguageScreen(), Type.BOTH);
+    LANGUAGE("category.language",FontManager.getDream(17), "e",0xA,new LanguageScreen(), Type.BOTH);
 
     // name of category (in case we don't use enum names)
     private final String name;

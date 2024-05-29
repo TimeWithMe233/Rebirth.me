@@ -1,5 +1,7 @@
 package com.alan.clients.module.impl.render.targetinfo;
 
+import com.alan.clients.Client;
+import com.alan.clients.module.impl.combat.KillAura;
 import com.alan.clients.module.impl.render.TargetInfo;
 import com.alan.clients.newevent.Listener;
 import com.alan.clients.newevent.annotations.EventLink;
@@ -148,6 +150,7 @@ public class MoonTargetInfo extends Mode<TargetInfo> {
         sfuiBold13.drawStringWithShadow(text + "HP", i2 + 40,
                 i1 + 15, 0xffffffff);
         productSansS.drawStringWithShadow(e.getCommandSenderName(), i2 + 40, i1 + 4, 0xffffffff);
+
         //   mc.fontRendererCrack.drawString(String.format("%.1f", (e.getHealth() + e.getAbsorptionAmount()) / 2), i2 + 41, i1 + 27, 0xffffffff, true);
         //   mc.fontRendererCrack.drawString(" \u2764", i2 + 40 + mc.fontRendererCrack.getStringWidth(String.format("%.1f", (e.getHealth() + e.getAbsorptionAmount()) / 2.0F)), i1 + 27, hudColor, true);
         RenderUtil.scaleEnd();

@@ -25,8 +25,8 @@ import java.io.IOException;
 
 public final class MainMenu extends Menu {
 
-    private static final ResourceLocation SETTINGS_ICON = new ResourceLocation("rise/icons/main_menu/SettingsIcon.png");
-    private static final ResourceLocation LANGUAGES_ICON = new ResourceLocation("rise/icons/main_menu/LanguagesIcon.png");
+    private static final ResourceLocation SETTINGS_ICON = new ResourceLocation("rebirth/icons/main_menu/SettingsIcon.png");
+    private static final ResourceLocation LANGUAGES_ICON = new ResourceLocation("rebirth/icons/main_menu/LanguagesIcon.png");
 
     // "Logo" animation
     private final Font fontRenderer = FontManager.getProductSansRegular(64);
@@ -76,7 +76,7 @@ public final class MainMenu extends Menu {
         this.animation.run(destination);
 
         // String name
-        String name = rice ? "Rebirth" : Client.NAME;
+        String name = "Rebirth";
 
         // Render the rise "logo"
         final double value = this.animation.getValue();

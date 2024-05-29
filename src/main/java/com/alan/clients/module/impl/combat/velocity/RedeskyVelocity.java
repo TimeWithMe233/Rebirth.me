@@ -4,6 +4,7 @@ import com.alan.clients.module.impl.combat.Velocity;
 import com.alan.clients.newevent.Listener;
 import com.alan.clients.newevent.annotations.EventLink;
 import com.alan.clients.newevent.impl.packet.PacketReceiveEvent;
+import com.alan.clients.util.interfaces.InstanceAccess;
 import com.alan.clients.util.packet.PacketUtil;
 import com.alan.clients.value.Mode;
 import com.alan.clients.value.impl.NumberValue;
@@ -23,7 +24,7 @@ public final class RedeskyVelocity extends Mode<Velocity> {
 
     @EventLink()
     public final Listener<PacketReceiveEvent> onPacketReceiveEvent = event -> {
-        if (getParent().onSwing.getValue() || getParent().onSprint.getValue() && !mc.thePlayer.isSwingInProgress) return;
+        if (getParent().onSwing.getValue() || getParent().onSprint.getValue() && !InstanceAccess.mc.thePlayer.isSwingInProgress) return;
 
         final Packet<?> p = event.getPacket();
 
@@ -32,12 +33,13 @@ public final class RedeskyVelocity extends Mode<Velocity> {
 
         if (p instanceof S12PacketEntityVelocity) {
             final S12PacketEntityVelocity wrapper = (S12PacketEntityVelocity) p;
-
-            if (wrapper.getEntityID() == mc.thePlayer.getEntityId()) {
+            if(InstanceAccess.mc.thePlayer!=null) {
+            if (wrapper.getEntityID() == InstanceAccess.mc.thePlayer.getEntityId()) {
                 if (horizontal == 0 && vertical == 0) {
                     event.setCancelled(true);
                     return;
                 }
+            }
 
                 wrapper.motionX *= horizontal / 100;
                 wrapper.motionY *= vertical / 100;
@@ -45,8 +47,8 @@ public final class RedeskyVelocity extends Mode<Velocity> {
 
                 event.setPacket(wrapper);
 
-                PacketUtil.send(new C0BPacketEntityAction(mc.thePlayer, C0BPacketEntityAction.Action.START_SNEAKING));
-                PacketUtil.send(new C0BPacketEntityAction(mc.thePlayer, C0BPacketEntityAction.Action.STOP_SNEAKING));
+                PacketUtil.send(new C0BPacketEntityAction(InstanceAccess.mc.thePlayer, C0BPacketEntityAction.Action.START_SNEAKING));
+                PacketUtil.send(new C0BPacketEntityAction(InstanceAccess.mc.thePlayer, C0BPacketEntityAction.Action.STOP_SNEAKING));
             }
         }
 

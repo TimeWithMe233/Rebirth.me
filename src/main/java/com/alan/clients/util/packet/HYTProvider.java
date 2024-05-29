@@ -1,6 +1,6 @@
 /*
  * Decompiled with CFR 0.153-SNAPSHOT (d6f6758-dirty).
- * 
+ *
  * Could not load the following classes:
  *  io.netty.buffer.ByteBuf
  *  io.netty.buffer.Unpooled
@@ -8,11 +8,12 @@
 package com.alan.clients.util.packet;
 
 import com.alan.clients.Client;
+import com.alan.clients.hyt.HYTWrapper;
+import com.alan.clients.hyt.game.GermModProcessor;
+import com.alan.clients.hyt.games.HYTSelector;
+import com.alan.clients.newevent.impl.packet.PacketCustomEvent;
 import com.alan.clients.util.DCJAntiVoid;
 import com.alan.clients.util.DCJNoRotate;
-import com.alan.clients.util.hyt.HYTWrapper;
-import com.alan.clients.util.hyt.game.GermModProcessor;
-import com.alan.clients.util.hyt.games.HYTSelector;
 import com.google.common.base.Charsets;
 import com.google.common.base.Joiner;
 import io.netty.buffer.Unpooled;

@@ -21,8 +21,8 @@ public final class Velocity extends Module {
             .add(new IntaveVelocity("Intave", this))
             .add(new MatrixVelocity("Matrix", this))
             .add(new AACVelocity("AAC", this))
-            .add(new GrimVelocity("Grim", this))
-            .add(new GrimACVelocity("GrimNew", this))
+            .add(new GrimACVelocity("GrimAC", this))
+            .add(new GrimACNewVelocity("DreamDev", this))
             .add(new VulcanVelocity("Vulcan", this))
             .add(new RedeskyVelocity("Redesky", this))
             .add(new TickVelocity("Tick", this))
@@ -35,4 +35,16 @@ public final class Velocity extends Module {
 
     public final BooleanValue onSwing = new BooleanValue("On Swing", this, false);
     public final BooleanValue onSprint = new BooleanValue("On Sprint", this, false);
+    public static enum StrengthCategory {
+        VERY_HIGH,
+        HIGH,
+        MEDIUM,
+        LOW,
+        VERY_LOW;
+
+        // $FF: synthetic method
+        private static Velocity.StrengthCategory[] $values() {
+            return new Velocity.StrengthCategory[]{VERY_HIGH, HIGH, MEDIUM, LOW, VERY_LOW};
+        }
+    }
 }

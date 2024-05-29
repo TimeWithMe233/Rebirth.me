@@ -33,16 +33,6 @@ import static com.alan.clients.module.impl.render.KillEffect.hytkills;
     @EventLink
     public final Listener<WorldChangeEvent> onWorldChange = event -> disableModule();
 
-    @EventLink
-    public final Listener<PreUpdateEvent> onPreUpdate = event -> {
-        Scaffold scaffold = getModule(Scaffold.class);
-        if (scaffold.isEnabled()) {
-            if (scaffold.getBlockCount() == 0) {
-                NotificationComponent.post("Scaffold", "Don't have blocks");
-                getModule(Scaffold.class).setEnabled(false);
-            }
-        }
-    };
 
     @EventLink()
     public final Listener<PacketReceiveEvent> onPacketReceiveEvent = event -> handlePacket(event.getPacket());

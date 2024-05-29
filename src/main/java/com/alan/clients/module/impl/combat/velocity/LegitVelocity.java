@@ -6,6 +6,7 @@ import com.alan.clients.newevent.annotations.EventLink;
 import com.alan.clients.newevent.impl.input.MoveInputEvent;
 import com.alan.clients.newevent.impl.motion.PreMotionEvent;
 import com.alan.clients.newevent.impl.packet.PacketReceiveEvent;
+import com.alan.clients.util.interfaces.InstanceAccess;
 import com.alan.clients.util.player.MoveUtil;
 import com.alan.clients.value.Mode;
 import net.minecraft.network.Packet;
@@ -27,7 +28,7 @@ public final class LegitVelocity extends Mode<Velocity> {
 
     @EventLink()
     public final Listener<MoveInputEvent> onMove = event -> {
-        if (getParent().onSwing.getValue() || getParent().onSprint.getValue() && !mc.thePlayer.isSwingInProgress) return;
+        if (getParent().onSwing.getValue() || getParent().onSprint.getValue() && !InstanceAccess.mc.thePlayer.isSwingInProgress) return;
 
         if (jump && MoveUtil.isMoving()) {
             event.setJump(true);
@@ -36,9 +37,9 @@ public final class LegitVelocity extends Mode<Velocity> {
 
     @EventLink()
     public final Listener<PacketReceiveEvent> onPacketReceiveEvent = event -> {
-        if (getParent().onSwing.getValue() || getParent().onSprint.getValue() && !mc.thePlayer.isSwingInProgress) return;
+        if (getParent().onSwing.getValue() || getParent().onSprint.getValue() && !InstanceAccess.mc.thePlayer.isSwingInProgress) return;
 
-        if (!mc.thePlayer.onGround) {
+        if (!InstanceAccess.mc.thePlayer.onGround) {
             return;
         }
 
@@ -46,9 +47,10 @@ public final class LegitVelocity extends Mode<Velocity> {
 
         if (p instanceof S12PacketEntityVelocity) {
             final S12PacketEntityVelocity wrapper = (S12PacketEntityVelocity) p;
-
-            if (wrapper.getEntityID() == mc.thePlayer.getEntityId()) {
-                jump = true;
+            if(InstanceAccess.mc.thePlayer!=null) {
+                if (wrapper.getEntityID() == InstanceAccess.mc.thePlayer.getEntityId()) {
+                    jump = true;
+                }
             }
         }
 

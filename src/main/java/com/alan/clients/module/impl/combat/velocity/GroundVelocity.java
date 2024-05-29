@@ -6,10 +6,11 @@ import com.alan.clients.newevent.Listener;
 import com.alan.clients.newevent.annotations.EventLink;
 import com.alan.clients.newevent.impl.input.MoveInputEvent;
 import com.alan.clients.newevent.impl.motion.PreMotionEvent;
+import com.alan.clients.util.interfaces.InstanceAccess;
 import com.alan.clients.value.Mode;
 import com.alan.clients.value.impl.NumberValue;
 
-public final class GroundVelocity extends Mode<Velocity>  {
+public final class GroundVelocity extends Mode<Velocity> {
 
     private final NumberValue delay = new NumberValue("Delay", this, 1, 0, 20, 1);
 
@@ -21,10 +22,10 @@ public final class GroundVelocity extends Mode<Velocity>  {
 
     @EventLink()
     public final Listener<PreMotionEvent> onPreMotionEvent = event -> {
-        if (getParent().onSwing.getValue() || getParent().onSprint.getValue() && !mc.thePlayer.isSwingInProgress) return;
+        if (getParent().onSwing.getValue() || getParent().onSprint.getValue() && !InstanceAccess.mc.thePlayer.isSwingInProgress) return;
 
         if (ticks == delay.getValue().intValue()) {
-            mc.thePlayer.onGround = true;
+            InstanceAccess.mc.thePlayer.onGround = true;
         }
 
         ticks++;

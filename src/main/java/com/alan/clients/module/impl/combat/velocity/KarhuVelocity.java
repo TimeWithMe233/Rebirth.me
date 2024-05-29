@@ -4,6 +4,7 @@ import com.alan.clients.module.impl.combat.Velocity;
 import com.alan.clients.newevent.Listener;
 import com.alan.clients.newevent.annotations.EventLink;
 import com.alan.clients.newevent.impl.other.BlockAABBEvent;
+import com.alan.clients.util.interfaces.InstanceAccess;
 import com.alan.clients.value.Mode;
 import net.minecraft.block.BlockAir;
 import net.minecraft.util.AxisAlignedBB;
@@ -16,12 +17,12 @@ public final class KarhuVelocity extends Mode<Velocity> {
 
     @EventLink()
     public final Listener<BlockAABBEvent> onBlockAABB = event -> {
-        if (getParent().onSwing.getValue() || getParent().onSprint.getValue() && !mc.thePlayer.isSwingInProgress) return;
+        if (getParent().onSwing.getValue() || getParent().onSprint.getValue() && !InstanceAccess.mc.thePlayer.isSwingInProgress) return;
 
-        if (event.getBlock() instanceof BlockAir && mc.thePlayer.hurtTime > 0 && mc.thePlayer.ticksSinceVelocity <= 9) {
+        if (event.getBlock() instanceof BlockAir && InstanceAccess.mc.thePlayer.hurtTime > 0 && InstanceAccess.mc.thePlayer.ticksSinceVelocity <= 9) {
             final double x = event.getBlockPos().getX(), y = event.getBlockPos().getY(), z = event.getBlockPos().getZ();
 
-            if (y == Math.floor(mc.thePlayer.posY) + 1) {
+            if (y == Math.floor(InstanceAccess.mc.thePlayer.posY) + 1) {
                 event.setBoundingBox(AxisAlignedBB.fromBounds(0, 0, 0, 1, 0, 1).offset(x, y, z));
             }
         }

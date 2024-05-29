@@ -4,47 +4,53 @@ import com.alan.clients.module.impl.player.Scaffold;
 import com.alan.clients.newevent.Listener;
 import com.alan.clients.newevent.annotations.EventLink;
 import com.alan.clients.newevent.impl.motion.PreMotionEvent;
+import com.alan.clients.newevent.impl.motion.StrafeEvent;
+import com.alan.clients.newevent.impl.packet.PacketSendEvent;
 import com.alan.clients.util.player.MoveUtil;
-import com.alan.clients.util.player.PlayerUtil;
 import com.alan.clients.value.Mode;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
+import net.minecraft.potion.Potion;
+import net.minecraft.util.BlockPos;
 
 public class WatchdogTower extends Mode<Scaffold> {
+
+    boolean jump, side;
+
     public WatchdogTower(String name, Scaffold parent) {
         super(name, parent);
     }
 
-    private int towerTick = 0;
+    @EventLink()
+    public final Listener<StrafeEvent> onStrafe = event -> {
+        if (!mc.gameSettings.keyBindJump.isKeyDown() || !MoveUtil.isMoving()) {
+            return;
+        }
 
-    @Override
-    public void onEnable() {
-        towerTick = 0;
-    }
+        if (mc.thePlayer.onGround) {
+            mc.thePlayer.motionY = MoveUtil.jumpMotion();
+            mc.thePlayer.motionX *= .65;
+            mc.thePlayer.motionZ *= .65;
+        }
+    };
 
     @EventLink()
     public final Listener<PreMotionEvent> onPreMotion = event -> {
-        if (mc.gameSettings.keyBindJump.isKeyDown() && PlayerUtil.blockNear(2)) {
-            if (MoveUtil.isMoving()) {
-                towerTick++;
+        if (!mc.gameSettings.keyBindJump.isKeyDown()) return;
 
-                if (mc.thePlayer.onGround)
-                    towerTick = 0;
+    };
 
-                mc.thePlayer.motionY = 0.41965;
-                mc.thePlayer.motionX = Math.min(mc.thePlayer.motionX, 0.265);
-                mc.thePlayer.motionZ = Math.min(mc.thePlayer.motionZ, 0.265);
+    @EventLink()
+    public final Listener<PacketSendEvent> onPacketSend = event -> {
 
-                if (towerTick == 1)
-                    mc.thePlayer.motionY = 0.33;
-                else if (towerTick == 2)
-                    mc.thePlayer.motionY = 1 - mc.thePlayer.posY % 1;
-                else if (towerTick >= 3)
-                    towerTick = 0;
-            } else {
-                towerTick = 0;
-                if (mc.thePlayer.onGround) mc.thePlayer.jump();
+        final Packet<?> packet = event.getPacket();
+
+        if (mc.thePlayer.motionY > -0.0784000015258789 && !mc.thePlayer.isPotionActive(Potion.jump) && packet instanceof C08PacketPlayerBlockPlacement && MoveUtil.isMoving()) {
+            final C08PacketPlayerBlockPlacement wrapper = ((C08PacketPlayerBlockPlacement) packet);
+
+            if (wrapper.getPosition().equals(new BlockPos(mc.thePlayer.posX, mc.thePlayer.posY - 1.4, mc.thePlayer.posZ))) {
+                mc.thePlayer.motionY = -0.0784000015258789;
             }
-        } else {
-            towerTick = 0;
         }
     };
 }

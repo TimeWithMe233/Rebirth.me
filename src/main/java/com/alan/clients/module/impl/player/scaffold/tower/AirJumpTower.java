@@ -1,6 +1,5 @@
 package com.alan.clients.module.impl.player.scaffold.tower;
 
-
 import com.alan.clients.module.impl.player.Scaffold;
 import com.alan.clients.newevent.Listener;
 import com.alan.clients.newevent.annotations.EventLink;

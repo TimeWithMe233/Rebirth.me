@@ -75,18 +75,19 @@ public enum Client {
      * are immutable and are very easy to create and use.
      */
     INSTANCE;
-
     public static String NAME = "Rebirth.me";
-    public static String VERSION = "1.0";
-    public static String VERSION_FULL = "1.0"; // Used to give more detailed build info on beta builds
-    public static String VERSION_DATE = "Rebirth 5, 2024";
+    public static String VERSION = "Dev";
+    public static String VERSION_FULL = "Development Build"; // Used to give more detailed build info on beta builds
+    public static String VERSION_DATE = "2024.5.28";
     public static final String location1 = getLocation();
     public static final String location2 = Local2.getLocation();
     public static String name = "null";
+    public static String cguistr = "Love";
     public static boolean DEVELOPMENT_SWITCH = true;
     public static boolean BETA_SWITCH = true;
     public static boolean FIRST_LAUNCH = true;
     public static Type CLIENT_TYPE = Type.RISE;
+    public static String Rank = "null";
 
 
 
@@ -151,8 +152,10 @@ public enum Client {
 
         if (getCPUSerial().equals("BFEBFBFF000906A3")){
             name = "DreamDev";
+            Rank= "[Owner]";
         }else{
              name =JOptionPane.showInputDialog(null,"Please enter your name:","Username",JOptionPane.PLAIN_MESSAGE);
+             Rank= "[User]";
         }
 
         // Crack Protection

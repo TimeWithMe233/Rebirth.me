@@ -35,6 +35,7 @@ public class FontManager {
     private static final HashMap<Integer, FontRenderer> TAHOMA = new HashMap<>();
 
     private static final HashMap<Integer, FontRenderer> ICONS_1 = new HashMap<>();
+    private static final HashMap<Integer, FontRenderer> Dream = new HashMap<>();
     private static final HashMap<Integer, FontRenderer> ICONS_2 = new HashMap<>();
     private static final HashMap<Integer, FontRenderer> ICONS_3 = new HashMap<>();
 
@@ -149,6 +150,9 @@ public class FontManager {
 
     public static Font getIconsOne(final int size) {
         return get(ICONS_1, size, "Icon-1", true, true);
+    }
+    public static Font getDream(final int size) {
+        return get(Dream, size, "Dream", true, true);
     }
 
     public static Font getIconsThree(final int size) {

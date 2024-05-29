@@ -8,7 +8,7 @@ package dramdev.socket.enums;
  */
 public enum ClientType {
     EMPTY("Empty"),
-    LAVENDER("Lavender"),
+    rebirth("rebirth"),
     Kura("Kura"),
     Rebirth("Rebirth"),
     ArtDay("ArtDay"),

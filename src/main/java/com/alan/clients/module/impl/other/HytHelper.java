@@ -38,6 +38,7 @@ import java.util.Random;
 public class HytHelper extends Module {
     private final BooleanValue memoryfix = new BooleanValue("MemoryFix", this, true);
     private final BooleanValue autogg = new BooleanValue("AutoGG", this, true);
+    private final BooleanValue healthNoti = new BooleanValue("Health Noti", this, true);
     private final BooleanValue tarckNoti = new BooleanValue("PlayerTrack Noti", this, true);
     private final StringValue messages = new StringValue("Message", this, "Get good get Rebirth.me");
     public static List<Entity> flaggedEntity = new ArrayList<>();
@@ -46,6 +47,9 @@ public class HytHelper extends Module {
     private EntityLivingBase target = null;
     public static String name;
     public static int kill = 0;
+    public static int lose = 0;
+    public static int win = 0;
+    public static int ez = 0;
     private final MSTimer timer = new MSTimer();
     public static boolean regen = false;
     public static boolean strength = false;
@@ -77,6 +81,20 @@ public class HytHelper extends Module {
             if (isNull()) return;
             if (target.isDead) {
                 kill++;
+            }
+            if (healthNoti.getValue()){
+                if (target.getHealth() >= mc.thePlayer.getHealth()) {
+                    lose++;
+                    NotificationComponent.post("Rebirth", "You may lose", 300);
+                }
+                if (target.getHealth() < mc.thePlayer.getHealth()) {
+                    win++;
+                    NotificationComponent.post("Rebirth", "You may win", 300);
+                }
+                if (target.getHealth() <= 5 || mc.thePlayer.isDead) {
+                    ez++;
+                    ChatUtil.send("不是老弟你这都能被反杀,紫砂去吧");
+                }
             }
             if (autogg.getValue()) {
                 if (ServerUtil.isOnServer("loyisa.cn")) {
@@ -212,5 +230,6 @@ public class HytHelper extends Module {
         int index = (new Random()).nextInt(messages.size());
         return messages.get(index);
     }
+
 }
 

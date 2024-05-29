@@ -39,7 +39,6 @@ public class SessionStats extends Module {
 
     private final ModeValue glowMode = new ModeValue("Glow Mode", this) {{
         add(new SubMode("Colored"));
-        add(new SubMode("Shadow"));
         add(new SubMode("None"));
         setDefault("Colored");
     }};
@@ -141,12 +140,6 @@ public class SessionStats extends Module {
                 RenderUtil.drawRoundedGradientRect(position.position.x, position.position.y, position.scale.x - 25, position.scale.y - 25,
                         12, ColorUtil.withAlpha(fade ? color1 : getTheme().getFirstColor(), opacity.getValue().intValue() + 100),
                         ColorUtil.withAlpha(fade ? color2 : getTheme().getSecondColor(), opacity.getValue().intValue() + 100), true);
-            }
-
-            // Shadow glow
-            else if (this.glowMode.getValue().getName().equals("Shadow")) {
-                RenderUtil.roundedRectangle(position.position.x, position.position.y, position.scale.x, position.scale.y,
-                        12, getTheme().getDropShadow());
             }
         });
 

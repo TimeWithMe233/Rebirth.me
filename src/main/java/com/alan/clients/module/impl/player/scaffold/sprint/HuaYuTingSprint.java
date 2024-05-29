@@ -1,9 +1,9 @@
 package com.alan.clients.module.impl.player.scaffold.sprint;
 
-import com.alan.clients.module.impl.player.Scaffold;
 import com.alan.clients.newevent.Listener;
 import com.alan.clients.newevent.annotations.EventLink;
 import com.alan.clients.newevent.impl.motion.PreMotionEvent;
+import com.alan.clients.module.impl.player.Scaffold;
 import com.alan.clients.util.player.MoveUtil;
 import com.alan.clients.value.Mode;
 import net.minecraft.client.settings.GameSettings;
@@ -32,5 +32,6 @@ public class HuaYuTingSprint extends Mode<Scaffold> {
     @Override
     public void onEnable() {
         mc.gameSettings.keyBindSprint.setPressed(true);
+        mc.thePlayer.setSprinting(true);
     }
 }

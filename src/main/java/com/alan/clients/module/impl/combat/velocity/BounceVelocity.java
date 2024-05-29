@@ -5,6 +5,7 @@ import com.alan.clients.module.impl.combat.Velocity;
 import com.alan.clients.newevent.Listener;
 import com.alan.clients.newevent.annotations.EventLink;
 import com.alan.clients.newevent.impl.motion.PreMotionEvent;
+import com.alan.clients.util.interfaces.InstanceAccess;
 import com.alan.clients.util.player.MoveUtil;
 import com.alan.clients.value.Mode;
 import com.alan.clients.value.impl.BooleanValue;
@@ -22,20 +23,20 @@ public final class BounceVelocity extends Mode<Velocity> {
 
     @EventLink()
     public final Listener<PreMotionEvent> onPreMotionEvent = event -> {
-        if (getParent().onSwing.getValue() || getParent().onSprint.getValue() && !mc.thePlayer.isSwingInProgress) return;
+        if (getParent().onSwing.getValue() || getParent().onSprint.getValue() && !InstanceAccess.mc.thePlayer.isSwingInProgress) return;
 
-        if (mc.thePlayer.hurtTime == 9 - this.tick.getValue().intValue()) {
+        if (InstanceAccess.mc.thePlayer.hurtTime == 9 - this.tick.getValue().intValue()) {
             if (this.horizontal.getValue()) {
                 if (MoveUtil.isMoving()) {
                     MoveUtil.strafe();
                 } else {
-                    mc.thePlayer.motionZ *= -1;
-                    mc.thePlayer.motionX *= -1;
+                    InstanceAccess.mc.thePlayer.motionZ *= -1;
+                    InstanceAccess.mc.thePlayer.motionX *= -1;
                 }
             }
 
             if (this.vertical.getValue()) {
-                mc.thePlayer.motionY *= -1;
+                InstanceAccess.mc.thePlayer.motionY *= -1;
             }
         }
     };

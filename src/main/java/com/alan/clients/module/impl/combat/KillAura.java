@@ -173,7 +173,7 @@ public final class KillAura extends Module {
     private long nextSwing;
 
     public static List<Entity> targets;
-    public Entity target;
+    public static Entity target;
 
     public StopWatch subTicksStopWatch = new StopWatch();
     public StopWatch switchChangeTicks = new StopWatch();

@@ -26,9 +26,11 @@ import com.alan.clients.util.vector.Vector2d;
 import com.alan.clients.util.vector.Vector2f;
 import lombok.Getter;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import util.time.StopWatch;
@@ -215,6 +217,8 @@ public final class RiseClickGUI extends GuiScreen implements InstanceAccess {
         /* Background */
         RenderUtil.roundedRectangle(position.x + sidebar.sidebarWidth, position.y, scale.x - sidebar.sidebarWidth, scale.y, round, backgroundColor);
         RenderUtil.rectangle(position.x + sidebar.sidebarWidth, position.y, round * 2, scale.y, backgroundColor);
+//        RenderUtil.drawImage(new ResourceLocation("rebirth/page/mahiro.png"), 1000, 1000, 848, 1198,1);
+
 //        RenderUtil.rectangle(position.x + sidebar.sidebarWidth, position.y, 0.5, scale.y, ColorUtil.withAlpha(Color.WHITE, 20));
 
         /* Stop objects from going outside the ClickGUI */

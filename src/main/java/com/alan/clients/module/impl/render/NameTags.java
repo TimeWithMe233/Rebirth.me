@@ -50,7 +50,16 @@ public final class NameTags extends Module {
 
             String playerName = entity.getCommandSenderName();
             String text;
+
+            if (playerName == Client.name){
+
+                String clientname = Client.name;
+                text = clientname;
+            }
+            else {
                 text = playerName;
+
+            }
             final double nameWidth = sansRegular.width(text);
 
             final double posX = (position.x + (position.z - position.x) / 2);

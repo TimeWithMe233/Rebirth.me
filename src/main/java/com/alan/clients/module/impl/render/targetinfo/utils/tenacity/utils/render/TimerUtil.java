@@ -1,44 +1,70 @@
 package com.alan.clients.module.impl.render.targetinfo.utils.tenacity.utils.render;
 
 
-import lombok.EqualsAndHashCode;
-
 public class TimerUtil {
+    private boolean run = true;
+    private long time = System.currentTimeMillis();
+    public boolean hasElapsed(long milliseconds) {
+        return System.currentTimeMillis() - this.time > milliseconds;
+    }
 
-    public long lastMS = System.currentTimeMillis();
+    public TimerUtil(boolean run) {
+        this.run = run;
+    }
 
+    public void start() {
+        this.run = true;
+    }
+
+    public void stop() {
+        this.run = false;
+    }
 
     public void reset() {
-        lastMS = System.currentTimeMillis();
+        this.time = System.currentTimeMillis();
     }
 
-
-    public boolean hasTimeElapsed(long time, boolean reset) {
-        if (System.currentTimeMillis() - lastMS > time) {
-            if (reset) reset();
-            return true;
-        }
-
-        return false;
+    public long getElapsedTime() {
+        return this.run ? System.currentTimeMillis() - this.time : 0L;
     }
 
-
-    public boolean hasTimeElapsed(long time) {
-        return System.currentTimeMillis() - lastMS > time;
+    public boolean hasTimeElapsed(long milliseconds) {
+        return this.run && this.getElapsedTime() >= milliseconds;
     }
 
-
-    public boolean hasTimeElapsed(double time) {
-        return hasTimeElapsed((long) time);
+    public void delay(long milliseconds) {
+        this.time += milliseconds;
     }
 
+    public static long getCurrentTime() {
+        return System.currentTimeMillis();
+    }
+
+    public boolean isOver(long milliseconds) {
+        return System.currentTimeMillis() - this.time > milliseconds;
+    }
+
+    public long remainingTime(long milliseconds) {
+        long elapsedTime = System.currentTimeMillis() - this.time;
+        return elapsedTime < milliseconds ? milliseconds - elapsedTime : 0L;
+    }
+
+    public boolean isRun() {
+        return this.run;
+    }
 
     public long getTime() {
-        return System.currentTimeMillis() - lastMS;
+        return this.time;
+    }
+
+    public void setRun(boolean run) {
+        this.run = run;
     }
 
     public void setTime(long time) {
-        lastMS = time;
+        this.time = time;
     }
 
+    public TimerUtil() {
+    }
 }
