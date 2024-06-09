@@ -1,5 +1,8 @@
 package net.minecraft.client.gui;
 
+import com.alan.clients.util.render.RenderUtil;
+import com.alan.clients.util.shader.RiseShaders;
+import com.alan.clients.util.shader.base.ShaderRenderType;
 import net.minecraft.client.AnvilConverterException;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
@@ -13,6 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.awt.*;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -235,7 +239,11 @@ public class GuiSelectWorld extends GuiScreen implements GuiYesNoCallback {
         }
 
         protected void drawBackground() {
-            GuiSelectWorld.this.drawDefaultBackground();
+            RiseShaders.MAIN_MENU_SHADER.run(ShaderRenderType.OVERLAY, 0, null);
+
+            ScaledResolution scaledResolution = new ScaledResolution(mc);
+
+            NORMAL_BLUR_RUNNABLES.add(() -> RenderUtil.rectangle(0, 0, scaledResolution.getScaledWidth(), scaledResolution.getScaledHeight(), Color.BLACK));
         }
 
         protected void drawSlot(final int entryID, final int p_180791_2_, final int p_180791_3_, final int p_180791_4_, final int mouseXIn, final int mouseYIn) {

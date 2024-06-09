@@ -5,6 +5,9 @@ import com.alan.clients.newevent.impl.input.GuiClickEvent;
 import com.alan.clients.newevent.impl.input.GuiMouseReleaseEvent;
 import com.alan.clients.util.font.impl.minecraft.FontRenderer;
 import com.alan.clients.util.interfaces.InstanceAccess;
+import com.alan.clients.util.render.RenderUtil;
+import com.alan.clients.util.shader.RiseShaders;
+import com.alan.clients.util.shader.base.ShaderRenderType;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -540,15 +543,19 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback, Instanc
      * Draws either a gradient over the background screen (when it exists) or a flat gradient over background.png
      */
     public void drawDefaultBackground() {
-        this.drawWorldBackground(0);
+        RiseShaders.MAIN_MENU_SHADER.run(ShaderRenderType.OVERLAY, 0, null);
+
+        ScaledResolution scaledResolution = new ScaledResolution(mc);
+
+        NORMAL_BLUR_RUNNABLES.add(() -> RenderUtil.rectangle(0, 0, scaledResolution.getScaledWidth(), scaledResolution.getScaledHeight(), Color.BLACK));
     }
 
     public void drawWorldBackground(final int tint) {
-        if (this.mc.theWorld != null) {
-            this.drawGradientRect(0, 0, this.width, this.height, -1072689136, -804253680);
-        } else {
-            this.drawBackground(tint);
-        }
+        RiseShaders.MAIN_MENU_SHADER.run(ShaderRenderType.OVERLAY, 0, null);
+
+        ScaledResolution scaledResolution = new ScaledResolution(mc);
+
+        NORMAL_BLUR_RUNNABLES.add(() -> RenderUtil.rectangle(0, 0, scaledResolution.getScaledWidth(), scaledResolution.getScaledHeight(), Color.BLACK));
     }
 
     /**

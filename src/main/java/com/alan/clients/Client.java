@@ -78,8 +78,8 @@ public enum Client {
     public static String NAME = "Rebirth.me";
     public static String VERSION = "Dev";
     public static String VERSION_FULL = "Development Build"; // Used to give more detailed build info on beta builds
-    public static String VERSION_DATE = "2024.5.28";
-    public static final String location1 = getLocation();
+    public static String VERSION_DATE = "2024.6.08";
+    public static final String location1 = Local.getLocation();
     public static final String location2 = Local2.getLocation();
     public static String name = "null";
     public static String cguistr = "Love";

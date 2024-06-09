@@ -5,11 +5,12 @@
  *  io.netty.buffer.Unpooled
  */
 package com.alan.clients.hyt.party.ui.hyt.germ.component.impl;
+
+import com.alan.clients.fontRender.FontManager;
 import com.alan.clients.hyt.party.ui.hyt.germ.component.GermComponent;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.PacketBuffer;
-import com.alan.clients.util.shader.impl.FontManager;
 import net.minecraft.network.play.client.C17PacketCustomPayload;
 
 import java.awt.*;
@@ -21,7 +22,7 @@ implements GermComponent {
 
     public GermPartyKick(final String playerName) {
         this.playerName = playerName;
-        this.kick = new GermModIconButton("bt", "rebirth/hyt/page/kick.png", 12, 12){
+        this.kick = new GermModIconButton("bt", "lavender/hyt/page/kick.png", 12, 12){
 
             @Override
             protected void whenClick() {

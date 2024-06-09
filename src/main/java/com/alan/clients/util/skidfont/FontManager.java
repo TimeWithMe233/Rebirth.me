@@ -34,7 +34,7 @@ public class FontManager {
     public static Font getFont(String name, int size) {
         Font font;
         try {
-            InputStream is = FontManager.class.getResourceAsStream("/assets/minecraft/OnLooker/font/" + name);
+            InputStream is = FontManager.class.getResourceAsStream("/assets/minecraft/rebirth/font/" + name);
             font = Font.createFont(0, is);
             font = font.deriveFont(Font.PLAIN, size);
             System.out.println("Loading " + name);

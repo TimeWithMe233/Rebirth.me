@@ -23,14 +23,14 @@ implements GermComponent {
 
     public GermPartyRequest(final String playerName) {
         this.playerName = playerName;
-        this.accept = new GermModIconButton("btok", "rebirth/hyt/page/accept.png", 12, 12){
+        this.accept = new GermModIconButton("btok", "lavender/hyt/page/accept.png", 12, 12){
 
             @Override
             protected void whenClick() {
                 Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new C17PacketCustomPayload("germmod-netease", new PacketBuffer(Unpooled.buffer().writeInt(26)).writeString("GUI$team_request_list@bt_accept").writeString("{\"player_name\":\"" + playerName + "\"}")));
             }
         };
-        this.deny = new GermModIconButton("btno", "rebirth/hyt/page/deny.png", 12, 12){
+        this.deny = new GermModIconButton("btno", "lavender/hyt/page/deny.png", 12, 12){
 
             @Override
             protected void whenClick() {

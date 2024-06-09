@@ -107,6 +107,9 @@ public class FontManager {
     public static Font getNunito(final int size) {
         return get(PRODUCT_SANS_REGULAR, size, "product_sans_regular", true, true, true);
     }
+    public static Font getPingFang(final int size) {
+        return get(PRODUCT_SANS_REGULAR, size, "PingFang-Bold", true, true, true);
+    }
 
     public static Font getNunitoBold(final int size) {
         return get(PRODUCT_SANS_BOLD, size, "product_sans_bold", true, true);

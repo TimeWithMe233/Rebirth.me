@@ -24,6 +24,7 @@ import net.minecraft.util.Session;
 import org.lwjgl.opengl.GL11;
 import util.time.StopWatch;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -112,12 +113,12 @@ public final class AltManagerMenu extends Menu {
         UI_BLOOM_RUNNABLES.clear();
 
         double offset = 3.5;
-        nunitoNormal.drawString("We recommend buying alts from, ",
-                offset + 0.5, scaledResolution.getScaledHeight() - offset - nunitoNormal.height() * 2 - 3,
-                ColorUtil.withAlpha(Color.WHITE, 70).getRGB());
-        nunitoNormal.drawString("dortgen.sell.app, kingalts.shop, localalts or sweetaccounts.mysellix.io",
-                offset + 0.5, scaledResolution.getScaledHeight() - offset - nunitoNormal.height(),
-                ColorUtil.withAlpha(Color.WHITE, 70).getRGB());
+//        nunitoNormal.drawString("We recommend buying alts from, ",
+//                offset + 0.5, scaledResolution.getScaledHeight() - offset - nunitoNormal.height() * 2 - 3,
+//                ColorUtil.withAlpha(Color.WHITE, 70).getRGB());
+//        nunitoNormal.drawString("dortgen.sell.app, kingalts.shop, localalts or sweetaccounts.mysellix.io",
+//                offset + 0.5, scaledResolution.getScaledHeight() - offset - nunitoNormal.height(),
+//                ColorUtil.withAlpha(Color.WHITE, 70).getRGB());
         // TODO: Don't forget to NOT render the displays out of the screen to save performance
     }
 
@@ -218,7 +219,9 @@ public final class AltManagerMenu extends Menu {
         }, "Login through browser", "Copied to your clipboard");
 
         this.loginOfflineAltButton = new MenuFeedBackTextButton(buttonX2, buttonY, BUTTON_WIDTH, BUTTON_HEIGHT, () -> {
-            final String name = getClipboardString().equals("") || getClipboardString().length() > 30 ? RandomUtil.randomName() : getClipboardString();
+            Frame frame = new Frame();
+            frame.setAlwaysOnTop(true);
+            final String name = JOptionPane.showInputDialog((Component)frame ,"Enter your name", null);
             Account account = new Account(name, "Offline");
             account.setOfflineUsername(name);
             account.setRefreshToken("0");

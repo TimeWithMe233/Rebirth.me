@@ -3,7 +3,7 @@
  */
 package com.alan.clients.hyt.party.ui.hyt.germ.component.impl;
 
-import com.alan.clients.util.shader.impl.FontManager;
+import com.alan.clients.fontRender.FontManager;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
 

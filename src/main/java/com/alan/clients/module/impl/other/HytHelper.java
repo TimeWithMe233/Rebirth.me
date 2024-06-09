@@ -27,6 +27,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.C01PacketChatMessage;
+import net.minecraft.util.EnumChatFormatting;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,7 +39,7 @@ import java.util.Random;
 public class HytHelper extends Module {
     private final BooleanValue memoryfix = new BooleanValue("MemoryFix", this, true);
     private final BooleanValue autogg = new BooleanValue("AutoGG", this, true);
-    private final BooleanValue healthNoti = new BooleanValue("Health Noti", this, true);
+    private final BooleanValue auton = new BooleanValue("Auto Nether Star", this, true);
     private final BooleanValue tarckNoti = new BooleanValue("PlayerTrack Noti", this, true);
     private final StringValue messages = new StringValue("Message", this, "Get good get Rebirth.me");
     public static List<Entity> flaggedEntity = new ArrayList<>();
@@ -47,9 +48,6 @@ public class HytHelper extends Module {
     private EntityLivingBase target = null;
     public static String name;
     public static int kill = 0;
-    public static int lose = 0;
-    public static int win = 0;
-    public static int ez = 0;
     private final MSTimer timer = new MSTimer();
     public static boolean regen = false;
     public static boolean strength = false;
@@ -81,20 +79,6 @@ public class HytHelper extends Module {
             if (isNull()) return;
             if (target.isDead) {
                 kill++;
-            }
-            if (healthNoti.getValue()){
-                if (target.getHealth() >= mc.thePlayer.getHealth()) {
-                    lose++;
-                    NotificationComponent.post("Rebirth", "You may lose", 300);
-                }
-                if (target.getHealth() < mc.thePlayer.getHealth()) {
-                    win++;
-                    NotificationComponent.post("Rebirth", "You may win", 300);
-                }
-                if (target.getHealth() <= 5 || mc.thePlayer.isDead) {
-                    ez++;
-                    ChatUtil.send("不是老弟你这都能被反杀,紫砂去吧");
-                }
             }
             if (autogg.getValue()) {
                 if (ServerUtil.isOnServer("loyisa.cn")) {
@@ -169,7 +153,7 @@ public class HytHelper extends Module {
                     if (WeaponDetection.isStrength(player) > 0 && !flaggedEntity.contains(player)) {
                         flaggedEntity.add(player);
                         if (tarckNoti.getValue()) {
-                            NotificationComponent.post( "PlayerTrack", player.getCommandSenderName() + "拥有力量药水", 15);
+                            ChatUtil.display( player.getCommandSenderName() + "一圈能打死他的老妈子");
                         }
                         name = player.getCommandSenderName();
                         strength = true;
@@ -177,7 +161,7 @@ public class HytHelper extends Module {
                     if (WeaponDetection.isRegen(player) > 0 && !flaggedEntity.contains(player)) {
                         flaggedEntity.add(player);
                         if (tarckNoti.getValue()) {
-                            NotificationComponent.post( "PlayerTrack", player.getCommandSenderName() + "拥有恢复药水", 500);
+                            ChatUtil.display(  player.getCommandSenderName() + "是傻逼生命恢复狗");
                         }
                         name = player.getCommandSenderName();
                         regen = true;
@@ -185,7 +169,7 @@ public class HytHelper extends Module {
                     if (WeaponDetection.isHoldingGodAxe(player) && !flaggedEntity.contains(player)) {
                         flaggedEntity.add(player);
                         if (tarckNoti.getValue()) {
-                            NotificationComponent.post( "PlayerTrack", player.getCommandSenderName() + "正在使用秒人斧", 500);
+                            ChatUtil.display( player.getCommandSenderName() + "正在使用秒人斧一刀劈死他的老妈子");
                         }
                         name = player.getCommandSenderName();
                         godaxe = true;
@@ -193,7 +177,7 @@ public class HytHelper extends Module {
                     if (WeaponDetection.isKBBall(player.getHeldItem()) && !flaggedEntity.contains(player)) {
                         flaggedEntity.add(player);
                         if (tarckNoti.getValue()) {
-                            NotificationComponent.post( "PlayerTrack", player.getCommandSenderName() + "正在使用击退球,请小心点", 500);
+                            ChatUtil.display(  player.getCommandSenderName() + "正在使用击退球一巴掌拍飞他的老妈子,离他远点");
                         }
                         name = player.getCommandSenderName();
                         kbball = true;
@@ -205,7 +189,7 @@ public class HytHelper extends Module {
                     gapple = true;
                     flaggedEntity.add(player);
                     if (tarckNoti.getValue()) {
-                        NotificationComponent.post( "PlayerTrack", player.getCommandSenderName() + "拥有附魔金苹果", 500);
+                        ChatUtil.display( player.getCommandSenderName() + "拥有死妈附魔金苹果");
                     }
                 }
             }

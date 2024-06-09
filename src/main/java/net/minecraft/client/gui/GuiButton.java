@@ -2,6 +2,7 @@ package net.minecraft.client.gui;
 
 import com.alan.clients.util.font.impl.minecraft.FontRenderer;
 import com.alan.clients.util.render.RenderUtil;
+import com.alan.clients.util.skidfont.FontManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.audio.SoundHandler;
@@ -107,6 +108,7 @@ public class GuiButton extends Gui {
             }
 
             this.drawCenteredString(fontrenderer, this.displayString, this.xPosition + this.width / 2, this.yPosition + (this.height - 6) / 2, j);
+//            FontManager.PingFang_bold18.drawStringWithShadow(this.displayString, this.xPosition + (double) this.width / 4, this.yPosition + (double) (this.height - 6) / 2-1.5f, j);
         }
     }
 

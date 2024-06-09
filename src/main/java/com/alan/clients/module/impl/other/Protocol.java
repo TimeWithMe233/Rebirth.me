@@ -13,10 +13,10 @@ import com.alan.clients.newevent.impl.other.SendChatMessageEvent;
 import com.alan.clients.newevent.impl.packet.PacketCustomEvent;
 import com.alan.clients.newevent.impl.render.Render2DEvent;
 import com.alan.clients.util.chat.ChatUtil;
-import com.alan.clients.util.packet.HYTProvider;
 import com.alan.clients.util.render.RenderUtil;
 import com.alan.clients.value.impl.ModeValue;
 import com.alan.clients.value.impl.SubMode;
+import util.util.Provider.HYTProvider;
 
 import java.awt.*;
 

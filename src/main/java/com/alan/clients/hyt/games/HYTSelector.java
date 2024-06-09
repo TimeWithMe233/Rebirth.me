@@ -5,6 +5,8 @@
  *  org.lwjgl.opengl.GL11
  */
 package com.alan.clients.hyt.games;
+
+import com.alan.clients.fontRender.FontManager;
 import com.alan.clients.hyt.Interface;
 import com.alan.clients.hyt.animation.Animation;
 import com.alan.clients.hyt.animation.ColorAnimation;
@@ -12,7 +14,6 @@ import com.alan.clients.hyt.animation.Type;
 import com.alan.clients.hyt.game.GermMenuItem;
 import com.alan.clients.hyt.game.GermModProcessor;
 import com.alan.clients.util.render.RenderUtil;
-import com.alan.clients.util.shader.impl.FontManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
@@ -91,7 +92,7 @@ public class HYTSelector
         FontManager.arial20.drawCenteredString("HytGermmod", (float)x + 57.0f, y + 25, -1);
         FontManager.arial16.drawStringWithShadow("1.1", (float)x + 28.0f+   FontManager.arial20.getStringWidth("HytGermmod"), y + 21,
                 getTheme().getFirstColor().getRGB());
-        FontManager.arial16.drawStringWithShadow("rebirth Team", (float)x + 25.0f, y + height-12,
+        FontManager.arial16.drawStringWithShadow("Lavender Team", (float)x + 25.0f, y + height-12,
                 getTheme().getFirstColor().getRGB());
         float cY = y + 50;
         float cY2 = y + 30;

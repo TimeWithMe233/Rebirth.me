@@ -5,6 +5,7 @@ import com.alan.clients.module.Module;
 import com.alan.clients.module.impl.render.Interface;
 import com.alan.clients.module.impl.render.UnlimitedChat;
 import com.alan.clients.ui.ingame.GuiIngameCache;
+import com.alan.clients.util.skidfont.FontManager;
 import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -82,7 +83,7 @@ public class GuiNewChat extends Gui {
                 }
 
                 if (flag) {
-                    final int k2 = this.mc.fontRendererObj.FONT_HEIGHT;
+                    final int k2 = FontManager.PingFang_bold16.getHeight();
                     GlStateManager.translate(-3.0F, 0.0F, 0.0F);
                     final int l2 = k * k2 + k;
                     final int i3 = j * k2 + j;
@@ -142,7 +143,7 @@ public class GuiNewChat extends Gui {
                                 final int j2 = -i1 * 9;
                                 final String s = chatline.getChatComponent().getFormattedText();
                                 GlStateManager.enableBlend();
-                                this.mc.fontRendererObj.drawStringWithShadow(s, 0, (float) (j2 - 7), 16777215);
+                                FontManager.PingFang_bold16.drawStringWithShadow(s, 0, (float) (j2 - 7), 16777215);
                                 GlStateManager.disableAlpha();
                             }
                         }
@@ -276,8 +277,8 @@ public class GuiNewChat extends Gui {
             if (j >= 0 && k >= 0) {
                 final int l = Math.min(this.getLineCount(), this.field_146253_i.size());
 
-                if (j <= MathHelper.floor_float((float) this.getChatWidth() / this.getChatScale()) && k < this.mc.fontRendererObj.FONT_HEIGHT * l + l) {
-                    final int i1 = k / this.mc.fontRendererObj.FONT_HEIGHT + this.scrollPos;
+                if (j <= MathHelper.floor_float((float) this.getChatWidth() / this.getChatScale()) && k < FontManager.PingFang_bold16.getHeight() * l + l) {
+                    final int i1 = k / FontManager.PingFang_bold16.getHeight() + this.scrollPos;
 
                     if (i1 >= 0 && i1 < this.field_146253_i.size()) {
                         final ChatLine chatline = this.field_146253_i.get(i1);
@@ -285,7 +286,7 @@ public class GuiNewChat extends Gui {
 
                         for (final IChatComponent ichatcomponent : chatline.getChatComponent()) {
                             if (ichatcomponent instanceof ChatComponentText) {
-                                j1 += this.mc.fontRendererObj.width(GuiUtilRenderComponents.func_178909_a(((ChatComponentText) ichatcomponent).getChatComponentText_TextValue(), false));
+                                j1 += FontManager.PingFang_bold16.getStringWidth((GuiUtilRenderComponents.func_178909_a(((ChatComponentText) ichatcomponent).getChatComponentText_TextValue(), false)));
 
                                 if (j1 > j) {
                                     return ichatcomponent;

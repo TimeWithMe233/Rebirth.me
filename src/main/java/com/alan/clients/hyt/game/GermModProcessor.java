@@ -9,13 +9,13 @@ package com.alan.clients.hyt.game;
 
 import com.alan.clients.hyt.CustomPacket;
 import com.alan.clients.hyt.party.PartyProcessor;
-import com.alan.clients.util.packet.HYTProvider;
 import com.google.common.base.Charsets;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.client.C17PacketCustomPayload;
+import util.util.Provider.HYTProvider;
 
 import java.nio.charset.StandardCharsets;
 import java.util.*;

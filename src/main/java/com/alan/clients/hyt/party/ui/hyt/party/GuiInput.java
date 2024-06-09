@@ -58,7 +58,7 @@ extends GuiScreen {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         GlStateManager.enableBlend();
-        RenderUtil.drawImage(new ResourceLocation("rebirth/hyt/page/background.png"), (float)(this.width / 2 - 100), (float)(this.height / 2 - 81), 200.0f, 162.0f, -1);
+        RenderUtil.drawImage(new ResourceLocation("lavender/hyt/page/background.png"), (float)(this.width / 2 - 100), (float)(this.height / 2 - 81), 200.0f, 162.0f, -1);
         Minecraft.getMinecraft().fontRendererObj.drawCenteredString("\u82b1\u96e8\u5ead\u7ec4\u961f\u7cfb\u7edf", this.width / 2, this.height / 2 - 72, new Color(216, 216, 216).getRGB());
         this.inputField.drawTextBox();
         this.confirm.drawComponent(this.guiUuid, this.width / 2, this.height / 2 + 30, mouseX, mouseY);

@@ -6,8 +6,8 @@
  */
 package com.alan.clients.hyt.party.ui.hyt.germ.component.impl;
 
+import com.alan.clients.fontRender.FontManager;
 import com.alan.clients.hyt.party.ui.hyt.germ.component.GermComponent;
-import com.alan.clients.util.shader.impl.FontManager;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
