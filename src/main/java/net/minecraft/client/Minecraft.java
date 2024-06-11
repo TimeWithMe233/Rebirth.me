@@ -563,6 +563,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         this.checkGLError("Post startup");
 
         this.ingameGUI = new GuiIngame(this);
+        ViaMCP.getInstance().setVersion(ProtocolVersion.v1_12_2.getVersion());
 
         if (this.serverName != null) {
             this.displayGuiScreen(new GuiConnecting(new MainMenu(), this, this.serverName, this.serverPort));

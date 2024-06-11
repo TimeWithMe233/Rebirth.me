@@ -1,6 +1,9 @@
 package net.minecraft.client.gui;
 
 import com.alan.clients.ui.menu.impl.serverfinder.ServerFinder;
+import com.alan.clients.util.render.RenderUtil;
+import com.alan.clients.util.shader.RiseShaders;
+import com.alan.clients.util.shader.base.ShaderRenderType;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import net.minecraft.client.multiplayer.GuiConnecting;
@@ -14,6 +17,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 
@@ -319,6 +323,11 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback {
         this.hoveringText = null;
         this.drawDefaultBackground();
         this.serverListSelector.drawScreen(mouseX, mouseY, partialTicks);
+//        RiseShaders.MAIN_MENU_SHADER.run(ShaderRenderType.OVERLAY, partialTicks, null);
+
+//        ScaledResolution scaledResolution = new ScaledResolution(mc);
+
+//        NORMAL_BLUR_RUNNABLES.add(() -> RenderUtil.rectangle(0, 0, scaledResolution.getScaledWidth(), scaledResolution.getScaledHeight(), Color.BLACK));
         this.drawCenteredString(this.fontRendererObj, I18n.format("multiplayer.title") + (!usingFinderList ? " (Normal)" : " (Finder)"), this.width / 2, 20, 16777215);
         super.drawScreen(mouseX, mouseY, partialTicks);
 

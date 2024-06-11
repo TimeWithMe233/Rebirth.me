@@ -84,7 +84,7 @@ public class ViaMCP {
                 platform.createProtocolPath();
             }
 
-            setVersion(PROTOCOL_VERSION);
+            setVersion(ProtocolVersion.v1_12_2.getVersion());
             this.file = new File("ViaMCP");
             if (this.file.mkdir()) {
                 this.getjLogger().info("Creating ViaMCP Folder");

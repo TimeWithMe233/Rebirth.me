@@ -6,7 +6,7 @@
  */
 package com.alan.clients.hyt.party.ui.hyt.germ.component.impl;
 
-import com.alan.clients.util.render.RenderUtil;
+import com.alan.clients.hyt.RenderUtil;
 import io.netty.buffer.Unpooled;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.client.C17PacketCustomPayload;

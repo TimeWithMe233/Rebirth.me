@@ -38,6 +38,7 @@ import com.alan.clients.util.file.insult.InsultManager;
 import com.alan.clients.util.localization.Locale;
 import com.alan.clients.util.math.MathConst;
 import com.alan.clients.util.value.ConstantManager;
+import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import dramdev.socket.network.SocketManager;
 import lombok.Getter;
 import lombok.Setter;

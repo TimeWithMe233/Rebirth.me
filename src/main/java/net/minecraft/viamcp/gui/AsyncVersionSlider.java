@@ -1,6 +1,7 @@
 package net.minecraft.viamcp.gui;
 
 
+import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
@@ -48,7 +49,7 @@ public class AsyncVersionSlider extends GuiButton {
                 this.sliderValue = MathHelper.clamp_float(this.sliderValue, 0.0F, 1.0F);
                 this.dragValue = sliderValue;
                 this.displayString = values[(int) (this.sliderValue * (values.length - 1))].getVersion().getName();
-                ViaMCP.getInstance().setVersion(values[(int) (this.sliderValue * (values.length - 1))].getVersion().getVersion());
+                ViaMCP.getInstance().setVersion(ProtocolVersion.v1_12_2.getVersion());
             }
 
             mc.getTextureManager().bindTexture(buttonTextures);
@@ -68,7 +69,7 @@ public class AsyncVersionSlider extends GuiButton {
             this.sliderValue = MathHelper.clamp_float(this.sliderValue, 0.0F, 1.0F);
             this.dragValue = sliderValue;
             this.displayString = values[(int) (this.sliderValue * (values.length - 1))].getVersion().getName();
-            ViaMCP.getInstance().setVersion(values[(int) (this.sliderValue * (values.length - 1))].getVersion().getVersion());
+            ViaMCP.getInstance().setVersion(ProtocolVersion.v1_12_2.getVersion());
             this.dragging = true;
             return true;
         } else {

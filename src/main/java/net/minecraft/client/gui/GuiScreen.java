@@ -1,8 +1,10 @@
 package net.minecraft.client.gui;
 
 import com.alan.clients.Client;
+import com.alan.clients.fontRender.FontManager;
 import com.alan.clients.newevent.impl.input.GuiClickEvent;
 import com.alan.clients.newevent.impl.input.GuiMouseReleaseEvent;
+import com.alan.clients.newevent.impl.other.SendChatMessageEvent;
 import com.alan.clients.util.font.impl.minecraft.FontRenderer;
 import com.alan.clients.util.interfaces.InstanceAccess;
 import com.alan.clients.util.render.RenderUtil;
@@ -393,8 +395,11 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback, Instanc
         if (addToChat) {
             this.mc.ingameGUI.getChatGUI().addToSentMessages(msg);
         }
-
-        this.mc.thePlayer.sendChatMessage(msg);
+        final SendChatMessageEvent event =new SendChatMessageEvent(msg);
+        Client.INSTANCE.getEventBus().handle(event);
+        if (!event.isCancelled()){
+            this.mc.thePlayer.sendChatMessage(msg);
+        }
     }
 
     /**
@@ -543,19 +548,15 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback, Instanc
      * Draws either a gradient over the background screen (when it exists) or a flat gradient over background.png
      */
     public void drawDefaultBackground() {
-        RiseShaders.MAIN_MENU_SHADER.run(ShaderRenderType.OVERLAY, 0, null);
-
-        ScaledResolution scaledResolution = new ScaledResolution(mc);
-
-        NORMAL_BLUR_RUNNABLES.add(() -> RenderUtil.rectangle(0, 0, scaledResolution.getScaledWidth(), scaledResolution.getScaledHeight(), Color.BLACK));
+        this.drawWorldBackground(0);
     }
 
     public void drawWorldBackground(final int tint) {
-        RiseShaders.MAIN_MENU_SHADER.run(ShaderRenderType.OVERLAY, 0, null);
-
-        ScaledResolution scaledResolution = new ScaledResolution(mc);
-
-        NORMAL_BLUR_RUNNABLES.add(() -> RenderUtil.rectangle(0, 0, scaledResolution.getScaledWidth(), scaledResolution.getScaledHeight(), Color.BLACK));
+        if (this.mc.theWorld != null) {
+            this.drawGradientRect(0, 0, this.width, this.height, -1072689136, -804253680);
+        } else {
+            this.drawBackground(tint);
+        }
     }
 
     /**
@@ -575,6 +576,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback, Instanc
         worldrenderer.pos(0.0D, 0.0D, 0.0D).tex(0.0D, tint).func_181669_b(64, 64, 64, 255).endVertex();
         tessellator.draw();
     }
+
 
     /**
      * Returns true if this GUI should pause the game when it is displayed in single-player

@@ -15,7 +15,7 @@ import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.client.C17PacketCustomPayload;
-import com.alan.clients.util.packet.HYTProvider;
+import util.util.Provider.HYTProvider;
 
 import java.nio.charset.StandardCharsets;
 import java.util.*;

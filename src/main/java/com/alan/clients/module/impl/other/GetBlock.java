@@ -22,19 +22,11 @@ public class GetBlock extends Module {
     @Override
     public void onEnable() {
         InstanceAccess.mc.thePlayer.sendChatMessage("/give " + blockmode.getValue().getName().toLowerCase() + " 64");
-        InstanceAccess.mc.thePlayer.sendChatMessage("/give " + blockmode.getValue().getName().toLowerCase() + " 64");
-        InstanceAccess.mc.thePlayer.sendChatMessage("/give " + blockmode.getValue().getName().toLowerCase() + " 64");
-        InstanceAccess.mc.thePlayer.sendChatMessage("/give " + blockmode.getValue().getName().toLowerCase() + " 64");
-        InstanceAccess.mc.thePlayer.sendChatMessage("/give " + blockmode.getValue().getName().toLowerCase() + " 64");
-        InstanceAccess.mc.thePlayer.sendChatMessage("/give " + blockmode.getValue().getName().toLowerCase() + " 64");
-        InstanceAccess.mc.thePlayer.sendChatMessage("/give " + blockmode.getValue().getName().toLowerCase() + " 64");
-        InstanceAccess.mc.thePlayer.sendChatMessage("/give " + blockmode.getValue().getName().toLowerCase() + " 64");
-        InstanceAccess.mc.thePlayer.sendChatMessage("/give " + blockmode.getValue().getName().toLowerCase() + " 64");
         setEnabled(false);
 
     }
     @Override
     public void onDisable(){
-        NotificationComponent.post("GetBlock","Get 576 blocks of "+ blockmode.getValue().getName() +" for You",500);
+        NotificationComponent.post("GetBlock","Get 64 blocks of "+ blockmode.getValue().getName() +" for You",500);
     }
 }

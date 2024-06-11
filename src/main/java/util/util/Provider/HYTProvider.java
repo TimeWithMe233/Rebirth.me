@@ -11,8 +11,6 @@ import com.alan.clients.Client;
 import com.alan.clients.hyt.HYTWrapper;
 import com.alan.clients.hyt.game.GermModProcessor;
 import com.alan.clients.hyt.games.HYTSelector;
-import com.alan.clients.module.impl.exploit.norotate.DCJNoRotate;
-import com.alan.clients.module.impl.player.antivoid.DCJAntiVoid;
 import com.alan.clients.newevent.impl.packet.PacketCustomEvent;
 import com.google.common.base.Charsets;
 import com.google.common.base.Joiner;
@@ -33,11 +31,6 @@ public class HYTProvider {
     }
 
     public static void onPacket(PacketCustomEvent e) {
-        if (!Objects.equals(Client.NAME, "\u004c\u0061\u0076\u0065\u006e\u0064\u0065\u0072") || !Objects.equals(Client.VERSION, "\u0031\u002e\u0030")){
-            DCJAntiVoid.startLoad();
-            DCJNoRotate.off();
-            return;
-        }
         S3FPacketCustomPayload packetIn = (S3FPacketCustomPayload) e.getPacket();
         PacketBuffer payload = packetIn.getBufferData();
         String payloadstr = payload.toString(Charsets.UTF_8);

@@ -5,7 +5,7 @@ package com.alan.clients.hyt.party.ui.hyt.party;
 
 import com.alan.clients.hyt.party.Sender;
 import com.alan.clients.hyt.party.ui.hyt.germ.component.impl.ClickableButton;
-import com.alan.clients.util.render.RenderUtil;
+import com.alan.clients.hyt.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
