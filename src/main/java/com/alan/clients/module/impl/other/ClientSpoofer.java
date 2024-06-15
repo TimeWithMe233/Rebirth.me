@@ -24,8 +24,6 @@ public final class ClientSpoofer extends Module  {
             .add(new SubMode("Lunar"))
             .add(new SubMode("PvP Lounge"))
             .add(new SubMode("CheatBreaker"))
-            .add(new SubMode("Geyser"))
-            .add(new SubMode("Germ Mod"))
             .setDefault("Forge");
 
     @EventLink()
@@ -61,20 +59,6 @@ public final class ClientSpoofer extends Module  {
                 case "CheatBreaker": {
                     wrapper.setData(createPacketBuffer("CB", true));
                     break;
-                }
-
-                case "Geyser": {
-                    // It's meant to be "eyser" don't change it
-                    wrapper.setData(createPacketBuffer("eyser", false));
-                    break;
-                }
-
-                case "Germ Mod": {
-//                    wrapper.setData(createPacketBuffer("fml,forge", true));
-//                    final C17PacketCustomPayload wrapperGermMod = new C17PacketCustomPayload();
-                    wrapper.setChannel("REGISTER");
-                    wrapper.setData(createPacketBuffer("FML|HS FML FML|MP FML FORGE germplugin-netease hyt0 armourers VexView", false));
-//                    PacketUtil.send(wrapperGermMod);
                 }
             }
         }

@@ -3,7 +3,7 @@
  */
 package com.alan.clients.hyt.animation;
 
-import com.alan.clients.hyt.RenderUtil;
+import com.alan.clients.util.render.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Util;
 

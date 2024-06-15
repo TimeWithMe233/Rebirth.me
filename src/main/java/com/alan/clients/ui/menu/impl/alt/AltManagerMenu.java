@@ -221,40 +221,7 @@ public final class AltManagerMenu extends Menu {
         this.loginOfflineAltButton = new MenuFeedBackTextButton(buttonX2, buttonY, BUTTON_WIDTH, BUTTON_HEIGHT, () -> {
             Frame frame = new Frame();
             frame.setAlwaysOnTop(true);
-            final String
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    name = JOptionPane.showInputDialog((Component)frame ,"Enter your name", null);
+            final String name = JOptionPane.showInputDialog((Component)frame ,"Enter your name", null);
             Account account = new Account(name, "Offline");
             account.setOfflineUsername(name);
             account.setRefreshToken("0");

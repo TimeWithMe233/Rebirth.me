@@ -4,6 +4,9 @@ import com.alan.clients.util.chat.ChatUtil;
 import com.alan.clients.util.interfaces.InstanceAccess;
 import lombok.Getter;
 
+import java.awt.*;
+import java.io.IOException;
+
 /**
  * @author Patrick
  * @since 10/19/2021
@@ -19,7 +22,7 @@ public abstract class Command implements InstanceAccess {
         this.expressions = expressions;
     }
 
-    public abstract void execute(String[] args);
+    public abstract void execute(String[] args) throws IOException, AWTException;
 
     protected final void error() {
         ChatUtil.display("§cInvalid command arguments.");

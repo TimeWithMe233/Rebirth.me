@@ -6,6 +6,9 @@ import com.alan.clients.command.Command;
 import com.alan.clients.module.api.DevelopmentFeature;
 import com.alan.clients.util.chat.ChatUtil;
 
+import java.awt.*;
+import java.io.IOException;
+
 /**
  * @author Alan
  * @since 10/19/2021
@@ -19,7 +22,7 @@ public final class DeveloperReload extends Command {
     }
 
     @Override
-    public void execute(final String[] args) {
+    public void execute(final String[] args) throws IOException, AWTException {
         Client.INSTANCE.terminate();
         Client.INSTANCE.initRise();
         ChatUtil.display("Reloaded Rise");

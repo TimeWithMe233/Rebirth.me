@@ -6,6 +6,8 @@ import com.alan.clients.newevent.annotations.EventLink;
 import com.alan.clients.newevent.impl.input.ChatInputEvent;
 import com.alan.clients.util.chat.ChatUtil;
 
+import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -68,7 +70,13 @@ public final class CommandManager extends ArrayList<Command> {
                                             expression.equalsIgnoreCase(args[0])))
                     .forEach(command -> {
                         commandFound.set(true);
-                        command.execute(args);
+                        try {
+                            command.execute(args);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        } catch (AWTException e) {
+                            throw new RuntimeException(e);
+                        }
                     });
         } catch (final Exception ex) {
             ex.printStackTrace();

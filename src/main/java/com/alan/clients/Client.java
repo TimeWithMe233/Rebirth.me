@@ -23,10 +23,7 @@ import com.alan.clients.ui.click.dropdown.DropdownClickGUI;
 import com.alan.clients.ui.click.standard.RiseClickGUI;
 import com.alan.clients.ui.menu.impl.alt.AltManagerMenu;
 import com.alan.clients.ui.theme.ThemeManager;
-import com.alan.clients.util.Local;
-import com.alan.clients.util.Local2;
-import com.alan.clients.util.ReflectionUtil;
-import com.alan.clients.util.SlotSpoofHandler;
+import com.alan.clients.util.*;
 import com.alan.clients.util.file.FileManager;
 import com.alan.clients.util.file.FileType;
 import com.alan.clients.util.file.alt.AltManager;
@@ -38,10 +35,12 @@ import com.alan.clients.util.file.insult.InsultManager;
 import com.alan.clients.util.localization.Locale;
 import com.alan.clients.util.math.MathConst;
 import com.alan.clients.util.value.ConstantManager;
+import com.alan.clients.util.web.Browser;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import dramdev.socket.network.SocketManager;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.SneakyThrows;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.gui.GuiScreen;
@@ -52,12 +51,15 @@ import net.minecraft.viamcp.ViaMCP;
 import org.lwjgl.opengl.Display;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import static com.alan.clients.util.Local.getLocation;
+import static java.lang.System.exit;
 import static net.minecraft.client.Minecraft.getCPUSerial;
 
 /**
@@ -77,12 +79,14 @@ public enum Client {
      */
     INSTANCE;
     public static String NAME = "Rebirth.me";
+    public static String ezNAME = "Rebirth";
     public static String VERSION = "Dev";
     public static String VERSION_FULL = "Development Build"; // Used to give more detailed build info on beta builds
     public static String VERSION_DATE = "2024.6.08";
     public static final String location1 = Local.getLocation();
     public static final String location2 = Local2.getLocation();
     public static String name = "null";
+    public static String inputname = "null";
     public static String cguistr = "Love";
     public static boolean DEVELOPMENT_SWITCH = true;
     public static boolean BETA_SWITCH = true;
@@ -149,14 +153,38 @@ public enum Client {
 
 
 
-    public void initRise() {
+    public void initRise() throws IOException, AWTException {
 
-        if (getCPUSerial().equals("BFEBFBFF000906A3")){
+
+        String exitname = null;
+        if (getCPUSerial().equals("BFEBFBFF000906A3111")) {
             name = "DreamDev";
-            Rank= "[Owner]";
-        }else{
-             name =JOptionPane.showInputDialog(null,"Please enter your name:","Username",JOptionPane.PLAIN_MESSAGE);
-             Rank= "[User]";
+            Rank = "[Owner]";
+        } else {
+            Frame frame = new Frame();
+            frame.setAlwaysOnTop(true);
+            inputname = JOptionPane.showInputDialog((java.awt.Component) frame, "Please enter your name:", "Username", JOptionPane.PLAIN_MESSAGE);
+            exitname = getCPUSerial() + ":" + inputname;
+        }
+        if (Browser.get("https://gitee.com/kream-oxygen/11/raw/master/DevList").contains(exitname)) {
+            name = inputname;
+            Rank = "[Dev]";
+        } else if (Browser.get("https://gitee.com/kream-oxygen/11/raw/master/BetaList").contains(exitname)) {
+            name = inputname;
+            Rank = "[Beta]";
+        } else if (Browser.get("https://gitee.com/kream-oxygen/11/raw/master/User").contains(exitname)) {
+            name = inputname;
+            Rank = "[User]";
+        } else if (Browser.get("https://gitee.com/kream-oxygen/11/raw/master/BlackList").contains(exitname)) {
+            SystemUtils.displayTray("Morin", "你被本群客户拉黑了", TrayIcon.MessageType.WARNING);
+            exit(0);
+        } else {
+            Frame frame = new Frame();
+            frame.setAlwaysOnTop(true);
+            SystemUtils.displayTray("Morin", "找群管理上验证", TrayIcon.MessageType.WARNING);
+            JOptionPane.showInputDialog((java.awt.Component) frame, exitname, exitname);
+            Minecraft.getMinecraft().shutdown();
+            exit(0);
         }
 
         // Crack Protection
@@ -251,7 +279,7 @@ public enum Client {
         this.insultManager.init();
         this.packetLogManager.init();
 
-        final File file = new File(ConfigManager.CONFIG_DIRECTORY, "latest.json");
+        final File file = new File(ConfigManager.CONFIG_DIRECTORY, ezNAME + ".json");
         this.configFile = new ConfigFile(file, FileType.CONFIG);
         this.configFile.allowKeyCodeLoading();
         this.configFile.read();

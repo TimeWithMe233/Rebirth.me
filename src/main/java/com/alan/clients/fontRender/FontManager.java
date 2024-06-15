@@ -63,7 +63,7 @@ public class FontManager
     private static Font getFont(final String fontName, final float fontSize) {
         Font font = null;
         try {
-            final InputStream inputStream = Client.class.getResourceAsStream("/assets/minecraft/lavender/font/" + fontName);
+            final InputStream inputStream = Client.class.getResourceAsStream("/assets/minecraft/rebirth/font/" + fontName);
             assert inputStream != null;
             font = Font.createFont(0, inputStream);
             font = font.deriveFont(fontSize);

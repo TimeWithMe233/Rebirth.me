@@ -1,13 +1,12 @@
 /*
  * Decompiled with CFR 0.153-SNAPSHOT (d6f6758-dirty).
- * 
+ *
  * Could not load the following classes:
  *  io.netty.buffer.ByteBuf
  *  io.netty.buffer.Unpooled
  */
-package util.util.Provider;
+package util.Provider;
 
-import com.alan.clients.Client;
 import com.alan.clients.hyt.HYTWrapper;
 import com.alan.clients.hyt.game.GermModProcessor;
 import com.alan.clients.hyt.games.HYTSelector;
@@ -21,7 +20,6 @@ import net.minecraft.network.play.client.C17PacketCustomPayload;
 import net.minecraft.network.play.server.S3FPacketCustomPayload;
 
 import java.util.Arrays;
-import java.util.Objects;
 
 public class HYTProvider {
     static GermModProcessor germModPacket = new GermModProcessor();

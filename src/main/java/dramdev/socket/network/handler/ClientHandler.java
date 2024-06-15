@@ -30,7 +30,7 @@ public class ClientHandler extends SimpleChannelInboundHandler<Packet> {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         LogManager.getLogger().info("Connected to server: " + ctx.channel().remoteAddress());
-        if(Client.name.equals("DreamDev")) {
+        if(Client.Rank.equals("[Owner]")) {
             ctx.writeAndFlush(new UserInfoPacket(
                     ClientType.Rebirth,
                     0,
@@ -38,17 +38,33 @@ public class ClientHandler extends SimpleChannelInboundHandler<Packet> {
                     Rank.OWNER,
                     0,
                     114514
-            ));}
-            else {
-                ctx.writeAndFlush(new UserInfoPacket(
-                        ClientType.Rebirth,
-                        0,
-                        EnumChatFormatting.LIGHT_PURPLE + "[" + Client.location2 + "] " + EnumChatFormatting.RESET + Client.name,
-                        Rank.USER,
-                        0,
-                        114514
-                ));
-            }
+            ));} else if (Client.Rank.equals("[Dev]")) {
+            ctx.writeAndFlush(new UserInfoPacket(
+                    ClientType.Rebirth,
+                    0,
+                    EnumChatFormatting.LIGHT_PURPLE + "[" + Client.location2 + "] " + EnumChatFormatting.RESET + Client.name,
+                    Rank.DEV,
+                    0,
+                    114514
+            ));
+            } else if (Client.Rank.equals("[Beta]")) {
+            ctx.writeAndFlush(new UserInfoPacket(
+                    ClientType.Rebirth,
+                    0,
+                    EnumChatFormatting.LIGHT_PURPLE + "[" + Client.location2 + "] " + EnumChatFormatting.RESET + Client.name,
+                    Rank.BETA,
+                    0,
+                    114514
+            ));} else {
+            ctx.writeAndFlush(new UserInfoPacket(
+                    ClientType.Rebirth,
+                    0,
+                    EnumChatFormatting.LIGHT_PURPLE + "[" + Client.location2 + "] " + EnumChatFormatting.RESET + Client.name,
+                    Rank.USER,
+                    0,
+                    114514
+            ));
+        }
         }
 
 

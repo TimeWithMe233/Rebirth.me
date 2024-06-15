@@ -466,7 +466,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
     /**
      * Starts the game: initializes the canvas, the title, the settings, etcetera.
      */
-    private void startGame() throws LWJGLException {
+    private void startGame() throws LWJGLException, IOException, AWTException {
 
         // Kys
 //        this.toggleFullscreen();
@@ -563,7 +563,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         this.checkGLError("Post startup");
 
         this.ingameGUI = new GuiIngame(this);
-        ViaMCP.getInstance().setVersion(ProtocolVersion.v1_12_2.getVersion());
 
         if (this.serverName != null) {
             this.displayGuiScreen(new GuiConnecting(new MainMenu(), this, this.serverName, this.serverPort));

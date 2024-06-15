@@ -13,7 +13,7 @@ import com.alan.clients.hyt.animation.ColorAnimation;
 import com.alan.clients.hyt.animation.Type;
 import com.alan.clients.hyt.game.GermMenuItem;
 import com.alan.clients.hyt.game.GermModProcessor;
-import com.alan.clients.hyt.RenderUtil;
+import com.alan.clients.util.render.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
@@ -90,9 +90,9 @@ public class HYTSelector
         RenderUtil.roundedRectangle((float)x+17, (float)y+10, width-120, height-12,  7, new Color(22, 22, 22, 252));
         RenderUtil.roundedRectangle((float)x+101, (float)y+10, width-204, height-12,  7, new Color(17, 17, 17, 252));
         FontManager.arial20.drawCenteredString("HytGermmod", (float)x + 57.0f, y + 25, -1);
-        FontManager.arial16.drawStringWithShadow("", (float)x + 28.0f+   FontManager.arial20.getStringWidth("HytGermmod"), y + 21,
+        FontManager.arial16.drawStringWithShadow("1.1", (float)x + 28.0f+   FontManager.arial20.getStringWidth("HytGermmod"), y + 21,
                 getTheme().getFirstColor().getRGB());
-        FontManager.arial16.drawStringWithShadow("Rebirth.me", (float)x + 25.0f, y + height-12,
+        FontManager.arial16.drawStringWithShadow("Lavender Team", (float)x + 25.0f, y + height-12,
                 getTheme().getFirstColor().getRGB());
         float cY = y + 50;
         float cY2 = y + 30;

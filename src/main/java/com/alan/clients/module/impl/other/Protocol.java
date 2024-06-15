@@ -16,7 +16,7 @@ import com.alan.clients.util.chat.ChatUtil;
 import com.alan.clients.util.render.RenderUtil;
 import com.alan.clients.value.impl.ModeValue;
 import com.alan.clients.value.impl.SubMode;
-import util.util.Provider.HYTProvider;
+import util.Provider.HYTProvider;
 
 import java.awt.*;
 

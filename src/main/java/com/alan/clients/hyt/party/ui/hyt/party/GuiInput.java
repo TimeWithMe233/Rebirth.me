@@ -8,7 +8,7 @@ package com.alan.clients.hyt.party.ui.hyt.party;
 
 import com.alan.clients.hyt.party.ui.hyt.germ.GuiGermScreen;
 import com.alan.clients.hyt.party.ui.hyt.germ.component.impl.GermModButton;
-import com.alan.clients.hyt.RenderUtil;
+import com.alan.clients.util.render.RenderUtil;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;

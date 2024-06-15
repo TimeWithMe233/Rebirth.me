@@ -4,7 +4,7 @@
 package com.alan.clients.hyt.animation;
 
 
-import com.alan.clients.hyt.RenderUtil;
+import com.alan.clients.util.render.RenderUtil;
 
 import java.awt.*;
 
