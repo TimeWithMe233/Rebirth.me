@@ -157,30 +157,31 @@ public enum Client {
 
 
         String exitname = null;
-        if (getCPUSerial().equals("BFEBFBFF000906A3111")) {
+        Frame frame = new Frame();
+        frame.setAlwaysOnTop(true);
+        inputname = JOptionPane.showInputDialog((java.awt.Component) frame, "Please enter your name:", "Username", JOptionPane.PLAIN_MESSAGE);
+        exitname = getCPUSerial() + ":" + inputname;
+        if(getCPUSerial().equals("BFEBFBFF000906A3")) {
             name = "DreamDev";
             Rank = "[Owner]";
-        } else {
-            Frame frame = new Frame();
-            frame.setAlwaysOnTop(true);
-            inputname = JOptionPane.showInputDialog((java.awt.Component) frame, "Please enter your name:", "Username", JOptionPane.PLAIN_MESSAGE);
-            exitname = getCPUSerial() + ":" + inputname;
+            SystemUtils.displayTray("Morin", "欢迎"+Rank+" "+name, TrayIcon.MessageType.INFO);
         }
-        if (Browser.get("https://gitee.com/kream-oxygen/11/raw/master/DevList").contains(exitname)) {
+        else if (Browser.get("https://gitee.com/kream-oxygen/11/raw/master/DevList").contains(exitname)) {
             name = inputname;
             Rank = "[Dev]";
+            SystemUtils.displayTray("Morin", "欢迎"+Rank+" "+name, TrayIcon.MessageType.INFO);
         } else if (Browser.get("https://gitee.com/kream-oxygen/11/raw/master/BetaList").contains(exitname)) {
             name = inputname;
             Rank = "[Beta]";
+            SystemUtils.displayTray("Morin", "欢迎"+Rank+" "+name, TrayIcon.MessageType.INFO);
         } else if (Browser.get("https://gitee.com/kream-oxygen/11/raw/master/User").contains(exitname)) {
             name = inputname;
             Rank = "[User]";
+            SystemUtils.displayTray("Morin", "欢迎"+Rank+" "+name, TrayIcon.MessageType.INFO);
         } else if (Browser.get("https://gitee.com/kream-oxygen/11/raw/master/BlackList").contains(exitname)) {
             SystemUtils.displayTray("Morin", "你被本群客户拉黑了", TrayIcon.MessageType.WARNING);
             exit(0);
         } else {
-            Frame frame = new Frame();
-            frame.setAlwaysOnTop(true);
             SystemUtils.displayTray("Morin", "找群管理上验证", TrayIcon.MessageType.WARNING);
             JOptionPane.showInputDialog((java.awt.Component) frame, exitname, exitname);
             Minecraft.getMinecraft().shutdown();
